@@ -15,7 +15,7 @@
     "isActive": true,
     "emailSent": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T16:02:11.447Z",
+    "updatedAt": "2026-09-08T16:02:15.047Z",
     "parent": {
       "id": "prn-1",
       "userId": null,
@@ -24,7 +24,7 @@
       "phone": "082111111111",
       "address": "Jl. Sudirman No. 1",
       "createdAt": "2026-09-08T03:53:18.674Z",
-      "updatedAt": "2026-09-08T16:02:11.447Z"
+      "updatedAt": "2026-09-08T16:02:15.047Z"
     },
     "attendance": {
       "totalPresent": 15,
