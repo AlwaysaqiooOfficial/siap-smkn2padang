@@ -11,10 +11,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
     "parentId": "prn-1",
-    "qrToken": "QR-7EB4EA45820D",
+    "qrToken": "QR-9F1688654F78",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "std-15",
@@ -28,10 +28,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
     "parentId": "prn-5",
-    "qrToken": "QR-2CA4FE808193",
+    "qrToken": "QR-52C8964DC87C",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "std-29",
@@ -45,9 +45,9 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
     "parentId": "prn-9",
-    "qrToken": "QR-B903362A8B85",
+    "qrToken": "QR-1E6EBAA40DA1",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   }
 ]

@@ -11,10 +11,10 @@
     "majorId": "mjr-mplb",
     "classId": "cls-xi-mplb-1",
     "parentId": "prn-8",
-    "qrToken": "QR-375515423836",
+    "qrToken": "QR-06A4194D9292",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "std-22",
@@ -28,9 +28,9 @@
     "majorId": "mjr-mplb",
     "classId": "cls-xi-mplb-1",
     "parentId": "prn-2",
-    "qrToken": "QR-0197A8E3BCCF",
+    "qrToken": "QR-1A28DC65BB75",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   }
 ]

@@ -5,8 +5,8 @@
     "grade": 10,
     "majorId": "mjr-rpl",
     "homeroomTeacherId": "tch-1",
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-rpl-2",
@@ -14,8 +14,8 @@
     "grade": 10,
     "majorId": "mjr-rpl",
     "homeroomTeacherId": "tch-2",
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-xi-rpl-1",
@@ -23,8 +23,8 @@
     "grade": 11,
     "majorId": "mjr-rpl",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-xii-rpl-1",
@@ -32,8 +32,8 @@
     "grade": 12,
     "majorId": "mjr-rpl",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-tkj-1",
@@ -41,8 +41,8 @@
     "grade": 10,
     "majorId": "mjr-tkj",
     "homeroomTeacherId": "tch-3",
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-xi-tkj-1",
@@ -50,8 +50,8 @@
     "grade": 11,
     "majorId": "mjr-tkj",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-mplb-1",
@@ -59,8 +59,8 @@
     "grade": 10,
     "majorId": "mjr-mplb",
     "homeroomTeacherId": "tch-4",
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-xi-mplb-1",
@@ -68,8 +68,8 @@
     "grade": 11,
     "majorId": "mjr-mplb",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-akl-1",
@@ -77,8 +77,8 @@
     "grade": 10,
     "majorId": "mjr-akl",
     "homeroomTeacherId": "tch-5",
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-xi-akl-1",
@@ -86,8 +86,8 @@
     "grade": 11,
     "majorId": "mjr-akl",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-ulw-1",
@@ -95,8 +95,8 @@
     "grade": 10,
     "majorId": "mjr-ulw",
     "homeroomTeacherId": "tch-6",
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-xi-ulw-1",
@@ -104,8 +104,8 @@
     "grade": 11,
     "majorId": "mjr-ulw",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-bd-1",
@@ -113,8 +113,8 @@
     "grade": 10,
     "majorId": "mjr-bd",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "cls-x-br-1",
@@ -122,7 +122,7 @@
     "grade": 10,
     "majorId": "mjr-br",
     "homeroomTeacherId": null,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   }
 ]

@@ -6,8 +6,8 @@
     "fullName": "Ahmad Dahlan, S.Pd.",
     "phone": "081234560001",
     "isHomeroom": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-2",
@@ -16,8 +16,8 @@
     "fullName": "Siti Nurhaliza, M.Pd.",
     "phone": "081234560002",
     "isHomeroom": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-3",
@@ -26,8 +26,8 @@
     "fullName": "Budi Santoso, S.Kom.",
     "phone": "081234560003",
     "isHomeroom": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-4",
@@ -36,8 +36,8 @@
     "fullName": "Dewi Lestari, S.E.",
     "phone": "081234560004",
     "isHomeroom": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-5",
@@ -46,8 +46,8 @@
     "fullName": "Eko Prasetyo, M.Ak.",
     "phone": "081234560005",
     "isHomeroom": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-6",
@@ -56,8 +56,8 @@
     "fullName": "Fitriani, S.Par.",
     "phone": "081234560006",
     "isHomeroom": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-7",
@@ -66,8 +66,8 @@
     "fullName": "Hendra Wijaya, S.T.",
     "phone": "081234560007",
     "isHomeroom": false,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-8",
@@ -76,8 +76,8 @@
     "fullName": "Indah Permata, S.Pd.",
     "phone": "081234560008",
     "isHomeroom": false,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "tch-9",
@@ -86,7 +86,7 @@
     "fullName": "Joko Susilo, M.T.",
     "phone": "081234560009",
     "isHomeroom": false,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   }
 ]

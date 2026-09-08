@@ -11,10 +11,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-x-tkj-1",
     "parentId": "prn-5",
-    "qrToken": "QR-CB719BF3BE76",
+    "qrToken": "QR-EF5921A5130F",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "std-6",
@@ -28,10 +28,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-xi-tkj-1",
     "parentId": "prn-6",
-    "qrToken": "QR-E96667F2F376",
+    "qrToken": "QR-32F4FEE510BA",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "std-19",
@@ -45,10 +45,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-x-tkj-1",
     "parentId": "prn-9",
-    "qrToken": "QR-0121A077C005",
+    "qrToken": "QR-885A1D535BFC",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   },
   {
     "id": "std-20",
@@ -62,9 +62,9 @@
     "majorId": "mjr-tkj",
     "classId": "cls-xi-tkj-1",
     "parentId": "prn-10",
-    "qrToken": "QR-C91123D6AAB4",
+    "qrToken": "QR-4DA1269D4571",
     "isActive": true,
-    "createdAt": "2026-09-08T03:44:28.349Z",
-    "updatedAt": "2026-09-08T03:44:28.349Z"
+    "createdAt": "2026-09-08T03:48:31.975Z",
+    "updatedAt": "2026-09-08T03:48:31.975Z"
   }
 ]

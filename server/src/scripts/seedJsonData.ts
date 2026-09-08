@@ -257,27 +257,33 @@ async function seedJsonDatabase() {
     console.log(`  ✅ ${file.name}: ${file.data.length} data ditulis`);
   }
 
-  // KHUSUS DATA MURID: DIBAGI PER JURUSAN & PER KELAS
-  console.log("\n📁 Memisahkan file JSON murid per Jurusan dan per Kelas...");
+  // KHUSUS DATA MURID: DIBAGI KEDALAM FOLDER KHUSUS
+  console.log("\n📁 Memisahkan file JSON murid ke FOLDER KHUSUS...");
 
-  // 1. Per Jurusan
+  const MAJOR_DIR = path.join(DATA_DIR, "students_per_major");
+  const CLASS_DIR = path.join(DATA_DIR, "students_per_class");
+
+  if (!fs.existsSync(MAJOR_DIR)) fs.mkdirSync(MAJOR_DIR, { recursive: true });
+  if (!fs.existsSync(CLASS_DIR)) fs.mkdirSync(CLASS_DIR, { recursive: true });
+
+  // 1. Folder Per Jurusan (data/students_per_major/rpl.json, etc)
   for (const m of majors) {
     const majorStudents = students.filter((s) => s.majorId === m.id);
-    const fileName = `students_major_${m.code.toLowerCase()}.json`;
-    fs.writeFileSync(path.join(DATA_DIR, fileName), JSON.stringify(majorStudents, null, 2), "utf8");
-    console.log(`  📂 ${fileName}: ${majorStudents.length} murid (${m.name})`);
+    const fileName = `${m.code.toLowerCase()}.json`;
+    fs.writeFileSync(path.join(MAJOR_DIR, fileName), JSON.stringify(majorStudents, null, 2), "utf8");
+    console.log(`  📂 data/students_per_major/${fileName}: ${majorStudents.length} murid (${m.name})`);
   }
 
-  // 2. Per Kelas
+  // 2. Folder Per Kelas (data/students_per_class/x_rpl_1.json, etc)
   for (const c of classes) {
     const classStudents = students.filter((s) => s.classId === c.id);
     const cleanClassName = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "_");
-    const fileName = `students_class_${cleanClassName}.json`;
-    fs.writeFileSync(path.join(DATA_DIR, fileName), JSON.stringify(classStudents, null, 2), "utf8");
-    console.log(`  📂 ${fileName}: ${classStudents.length} murid (Kelas ${c.name})`);
+    const fileName = `${cleanClassName}.json`;
+    fs.writeFileSync(path.join(CLASS_DIR, fileName), JSON.stringify(classStudents, null, 2), "utf8");
+    console.log(`  📂 data/students_per_class/${fileName}: ${classStudents.length} murid (Kelas ${c.name})`);
   }
 
-  console.log("\n🎉 Berhasil mengisi SELURUH file JSON database!");
+  console.log("\n🎉 Berhasil mengisi SELURUH file JSON ke folder khusus!");
 }
 
 seedJsonDatabase().catch(console.error);
