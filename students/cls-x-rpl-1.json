@@ -115,23 +115,5 @@
       "lastPresentAt": "2026-09-07T07:38:00.000Z",
       "lastResetAt": "2026-09-08T00:00:00.000Z"
     }
-  },
-  {
-    "id": "37235d86-a573-4774-944f-e80ebeef2451",
-    "nis": "321333343243",
-    "nisn": "34535355",
-    "fullName": "gfhdb",
-    "gender": "P",
-    "birthDate": "0003-03-04",
-    "majorId": "mjr-rpl",
-    "classId": "cls-x-rpl-1",
-    "address": null,
-    "qrToken": "SIAP-D637895D37C4-MTSU4JLX",
-    "userId": null,
-    "parentId": null,
-    "isActive": false,
-    "emailSent": false,
-    "createdAt": "2026-09-08T15:39:11.302Z",
-    "updatedAt": "2026-09-08T15:47:27.360Z"
   }
 ]
