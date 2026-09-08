@@ -31,5 +31,16 @@
     "lastLoginAt": null,
     "createdAt": "2026-09-08T03:53:18.674Z",
     "updatedAt": "2026-09-08T17:27:19.171Z"
+  },
+  {
+    "id": "a0410176-064f-4787-bc03-6b229dd3190c",
+    "email": "guru-c4c71bdf6cc44da591db8ba74066ad9b@internal.siap.local",
+    "username": "guru_c4c71bdf6cc44da591db8ba74066ad9b",
+    "passwordHash": "$2b$12$HGVJk5.tEerIdex3uYpCxunTzx1fuEF4y8FaHldxRcZB/QwlYUwhC",
+    "role": "GURU",
+    "isActive": true,
+    "lastLoginAt": null,
+    "createdAt": "2026-09-08T17:32:37.345Z",
+    "updatedAt": "2026-09-08T17:32:37.345Z"
   }
 ]
