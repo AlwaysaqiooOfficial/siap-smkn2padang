@@ -15,16 +15,16 @@
     "isActive": true,
     "emailSent": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T16:01:39.436Z",
+    "updatedAt": "2026-09-08T16:02:11.447Z",
     "parent": {
       "id": "prn-1",
       "userId": null,
       "fullName": "Bapak Aditya",
-      "email": "sha@gmail.com",
+      "email": "dsfs@gmail.com",
       "phone": "082111111111",
       "address": "Jl. Sudirman No. 1",
       "createdAt": "2026-09-08T03:53:18.674Z",
-      "updatedAt": "2026-09-08T16:01:39.435Z"
+      "updatedAt": "2026-09-08T16:02:11.447Z"
     },
     "attendance": {
       "totalPresent": 15,
