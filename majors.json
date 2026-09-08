@@ -1,9 +1,51 @@
 [
-  {"id": "mjr-rpl", "code": "RPL", "name": "Rekayasa Perangkat Lunak", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "mjr-tkj", "code": "TKJ", "name": "Teknik Komputer dan Jaringan", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "mjr-mplb", "code": "MPLB", "name": "Multimedia dan Persiapan Luar Biasa", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "mjr-akl", "code": "AKL", "name": "Akuntansi", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "mjr-ulw", "code": "ULW", "name": "Usaha Layanan Wisata", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "mjr-bd", "code": "BD", "name": "Bisnis Daring", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "mjr-br", "code": "BR", "name": "Barista", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"}
+  {
+    "id": "mjr-rpl",
+    "code": "RPL",
+    "name": "Rekayasa Perangkat Lunak",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "mjr-tkj",
+    "code": "TKJ",
+    "name": "Teknik Komputer dan Jaringan",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "mjr-mplb",
+    "code": "MPLB",
+    "name": "Multimedia dan Persiapan Luar Biasa",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "mjr-akl",
+    "code": "AKL",
+    "name": "Akuntansi",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "mjr-ulw",
+    "code": "ULW",
+    "name": "Usaha Layanan Wisata",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "mjr-bd",
+    "code": "BD",
+    "name": "Bisnis Daring",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "mjr-br",
+    "code": "BR",
+    "name": "Barista",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
 ]
