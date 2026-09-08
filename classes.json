@@ -4,9 +4,9 @@
     "name": "X RPL 1",
     "grade": 10,
     "majorId": "mjr-rpl",
-    "homeroomTeacherId": null,
+    "homeroomTeacherId": "tch-1",
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T15:26:10.045Z"
+    "updatedAt": "2026-09-08T17:28:27.065Z"
   },
   {
     "id": "cls-x-rpl-2",
