@@ -40,9 +40,9 @@
     "name": "X AKL 1",
     "grade": 10,
     "majorId": "mjr-akl",
-    "homeroomTeacherId": null,
+    "homeroomTeacherId": "tch-1",
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T03:53:18.674Z"
+    "updatedAt": "2026-09-08T15:28:43.778Z"
   },
   {
     "id": "cls-x-ulw-1",
