@@ -1,0 +1,12 @@
+[
+  {
+    "id": "sem-2026-1",
+    "academicYearId": "ay-2026",
+    "name": "Ganjil",
+    "order": 1,
+    "startDate": "2026-07-14T00:00:00.000Z",
+    "endDate": "2026-12-19T00:00:00.000Z",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:38:45.502Z"
+  }
+]

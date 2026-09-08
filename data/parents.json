@@ -1,0 +1,92 @@
+[
+  {
+    "id": "prn-1",
+    "userId": "usr-prn-1",
+    "fullName": "Bambang Pratama",
+    "phone": "085274110001",
+    "address": "Jl. Khatib Sulaiman No. 10, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-2",
+    "userId": "usr-prn-2",
+    "fullName": "Sri Wahyuni",
+    "phone": "085274110002",
+    "address": "Jl. Khatib Sulaiman No. 20, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-3",
+    "userId": "usr-prn-3",
+    "fullName": "Agus Setiawan",
+    "phone": "085274110003",
+    "address": "Jl. Khatib Sulaiman No. 30, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-4",
+    "userId": "usr-prn-4",
+    "fullName": "Rina Marlina",
+    "phone": "085274110004",
+    "address": "Jl. Khatib Sulaiman No. 40, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-5",
+    "userId": "usr-prn-5",
+    "fullName": "Hasan Basri",
+    "phone": "085274110005",
+    "address": "Jl. Khatib Sulaiman No. 50, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-6",
+    "userId": "usr-prn-6",
+    "fullName": "Nurhayati",
+    "phone": "085274110006",
+    "address": "Jl. Khatib Sulaiman No. 60, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-7",
+    "userId": "usr-prn-7",
+    "fullName": "Dedi Kurniawan",
+    "phone": "085274110007",
+    "address": "Jl. Khatib Sulaiman No. 70, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-8",
+    "userId": "usr-prn-8",
+    "fullName": "Siti Rahmah",
+    "phone": "085274110008",
+    "address": "Jl. Khatib Sulaiman No. 80, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-9",
+    "userId": "usr-prn-9",
+    "fullName": "Rudi Hartono",
+    "phone": "085274110009",
+    "address": "Jl. Khatib Sulaiman No. 90, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  },
+  {
+    "id": "prn-10",
+    "userId": "usr-prn-10",
+    "fullName": "Maya Kartika",
+    "phone": "085274110010",
+    "address": "Jl. Khatib Sulaiman No. 100, Padang",
+    "createdAt": "2026-09-08T03:38:45.502Z",
+    "updatedAt": "2026-09-08T03:38:45.502Z"
+  }
+]

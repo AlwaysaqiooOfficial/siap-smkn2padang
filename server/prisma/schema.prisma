@@ -1,0 +1,418 @@
+// ============================================================
+// SIAP SMKN 2 PADANG — Prisma Schema
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------------------------
+// ENUMS
+// ------------------------------------------------------------
+
+enum Role {
+  SUPER_ADMIN
+  WALI_KELAS
+  GURU
+  SCANNER
+  SISWA
+  ORANG_TUA
+}
+
+enum Gender {
+  L
+  P
+}
+
+enum AttendanceStatus {
+  HADIR
+  TERLAMBAT
+  IZIN
+  SAKIT
+  DISPENSASI
+  ALFA
+}
+
+enum PermissionType {
+  IZIN
+  SAKIT
+  DISPENSASI
+}
+
+enum PermissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ViolationStatus {
+  REPORTED
+  REVIEWED
+  RESOLVED
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum ActivityAction {
+  LOGIN
+  LOGOUT
+  CREATE
+  UPDATE
+  DELETE
+  SCAN_ATTENDANCE
+  APPROVE_PERMISSION
+  REJECT_PERMISSION
+  CREATE_VIOLATION
+  EXPORT_REPORT
+}
+
+// ------------------------------------------------------------
+// CORE ACCOUNTS
+// ------------------------------------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role
+  isActive     Boolean  @default(true) @map("is_active")
+  lastLoginAt  DateTime? @map("last_login_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  teacher         Teacher?
+  parent          Parent?
+  student         Student?
+  activityLogs    ActivityLog[]
+  notifications   Notification[]
+
+  @@index([role])
+  @@map("users")
+}
+
+model Teacher {
+  id            String   @id @default(cuid())
+  userId        String   @unique @map("user_id")
+  nip           String?  @unique
+  fullName      String   @map("full_name")
+  phone         String?
+  isHomeroom    Boolean  @default(false) @map("is_homeroom")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  homeroomClass Class?    @relation("HomeroomTeacher")
+  violations    Violation[]
+
+  @@map("teachers")
+}
+
+model Parent {
+  id        String   @id @default(cuid())
+  userId    String   @unique @map("user_id")
+  fullName  String   @map("full_name")
+  phone     String?
+  address   String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  students Student[]
+
+  @@map("parents")
+}
+
+// ------------------------------------------------------------
+// AKADEMIK: JURUSAN, KELAS, TAHUN AJARAN, SEMESTER
+// ------------------------------------------------------------
+
+model Major {
+  id        String   @id @default(cuid())
+  code      String   @unique // RPL, TKJ, MPLB, AKL, ULW, BD, BR
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  classes  Class[]
+  students Student[]
+
+  @@map("majors")
+}
+
+model Class {
+  id                 String   @id @default(cuid())
+  name               String   // contoh: "X RPL 1"
+  grade              Int      // 10, 11, 12
+  majorId            String   @map("major_id")
+  homeroomTeacherId  String?  @unique @map("homeroom_teacher_id")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  major             Major              @relation(fields: [majorId], references: [id])
+  homeroomTeacher   Teacher?           @relation("HomeroomTeacher", fields: [homeroomTeacherId], references: [id])
+  students          Student[]
+  classHistories    StudentClassHistory[]
+
+  @@unique([name, majorId])
+  @@index([majorId])
+  @@map("classes")
+}
+
+model AcademicYear {
+  id        String   @id @default(cuid())
+  name      String   @unique // "2026/2027"
+  isActive  Boolean  @default(false) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  semesters Semester[]
+
+  @@map("academic_years")
+}
+
+model Semester {
+  id              String   @id @default(cuid())
+  academicYearId  String   @map("academic_year_id")
+  name            String   // "Ganjil" / "Genap"
+  order           Int      // 1 atau 2
+  startDate       DateTime @map("start_date")
+  endDate         DateTime @map("end_date")
+  isActive        Boolean  @default(false) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  academicYear         AcademicYear          @relation(fields: [academicYearId], references: [id])
+  attendances           Attendance[]
+  studentClassHistories StudentClassHistory[]
+
+  @@unique([academicYearId, order])
+  @@index([academicYearId])
+  @@map("semesters")
+}
+
+// ------------------------------------------------------------
+// SISWA
+// ------------------------------------------------------------
+
+model Student {
+  id             String    @id @default(cuid())
+  userId         String?   @unique @map("user_id")
+  nis            String    @unique
+  nisn           String    @unique
+  fullName       String    @map("full_name")
+  gender         Gender
+  birthDate      DateTime  @map("birth_date")
+  address        String?   @db.Text
+  majorId        String    @map("major_id")
+  classId        String    @map("class_id")
+  parentId       String?   @map("parent_id")
+  qrToken        String    @unique @map("qr_token") // identifier unik untuk QR
+  isActive       Boolean   @default(true) @map("is_active")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  user                  User?                 @relation(fields: [userId], references: [id])
+  major                 Major                 @relation(fields: [majorId], references: [id])
+  class                 Class                 @relation(fields: [classId], references: [id])
+  parent                Parent?               @relation(fields: [parentId], references: [id])
+  classHistories        StudentClassHistory[]
+  attendances           Attendance[]
+  permissions            Permission[]
+  violations            Violation[]
+
+  @@index([classId])
+  @@index([majorId])
+  @@index([parentId])
+  @@map("students")
+}
+
+model StudentClassHistory {
+  id         String   @id @default(cuid())
+  studentId  String   @map("student_id")
+  classId    String   @map("class_id")
+  semesterId String   @map("semester_id")
+  note       String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  student  Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  class    Class    @relation(fields: [classId], references: [id])
+  semester Semester @relation(fields: [semesterId], references: [id])
+
+  @@index([studentId])
+  @@index([semesterId])
+  @@map("student_class_histories")
+}
+
+// ------------------------------------------------------------
+// ABSENSI
+// ------------------------------------------------------------
+
+model Attendance {
+  id             String            @id @default(cuid())
+  studentId      String            @map("student_id")
+  semesterId     String            @map("semester_id")
+  date           DateTime          @db.Date
+  checkInTime    DateTime?         @map("check_in_time")
+  status         AttendanceStatus
+  permissionId   String?           @unique @map("permission_id")
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  student     Student           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  semester    Semester          @relation(fields: [semesterId], references: [id])
+  permission  Permission?       @relation(fields: [permissionId], references: [id])
+  logs        AttendanceLog[]
+
+  @@unique([studentId, date, semesterId])
+  @@index([date])
+  @@index([status])
+  @@map("attendance")
+}
+
+model AttendanceLog {
+  id            String   @id @default(cuid())
+  attendanceId  String   @map("attendance_id")
+  action        String   // SCAN, AUTO_ALFA, MANUAL_UPDATE, PERMISSION_APPLIED
+  performedBy   String?  @map("performed_by") // userId, null jika sistem/cron
+  ipAddress     String?  @map("ip_address")
+  note          String?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  attendance Attendance @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+
+  @@index([attendanceId])
+  @@map("attendance_logs")
+}
+
+// ------------------------------------------------------------
+// IZIN / SAKIT / DISPENSASI
+// ------------------------------------------------------------
+
+model Permission {
+  id          String            @id @default(cuid())
+  studentId   String            @map("student_id")
+  type        PermissionType
+  reason      String            @db.Text
+  date        DateTime          @db.Date
+  attachment  String?           // path bukti (surat sakit dll)
+  status      PermissionStatus  @default(PENDING)
+  reviewedBy  String?           @map("reviewed_by") // userId wali kelas
+  reviewedAt  DateTime?         @map("reviewed_at")
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  student    Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  attendance Attendance?
+
+  @@index([studentId])
+  @@index([status])
+  @@map("permissions")
+}
+
+// ------------------------------------------------------------
+// PELANGGARAN
+// ------------------------------------------------------------
+
+model ViolationCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  points    Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  violations Violation[]
+
+  @@map("violation_categories")
+}
+
+model Violation {
+  id           String          @id @default(cuid())
+  studentId    String          @map("student_id")
+  teacherId    String          @map("teacher_id")
+  categoryId   String          @map("category_id")
+  description  String?         @db.Text
+  date         DateTime        @db.Date
+  points       Int
+  status       ViolationStatus @default(REPORTED)
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+
+  student  Student           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacher  Teacher           @relation(fields: [teacherId], references: [id])
+  category ViolationCategory @relation(fields: [categoryId], references: [id])
+
+  @@index([studentId])
+  @@index([date])
+  @@map("violations")
+}
+
+// ------------------------------------------------------------
+// NOTIFIKASI & EMAIL
+// ------------------------------------------------------------
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  title     String
+  message   String   @db.Text
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("notifications")
+}
+
+model EmailLog {
+  id           String      @id @default(cuid())
+  toEmail      String      @map("to_email")
+  subject      String
+  body         String      @db.Text
+  status       EmailStatus @default(PENDING)
+  errorMessage String?     @map("error_message") @db.Text
+  relatedType  String?     @map("related_type") // ATTENDANCE, PERMISSION, VIOLATION
+  relatedId    String?     @map("related_id")
+  sentAt       DateTime?   @map("sent_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  @@index([status])
+  @@map("email_logs")
+}
+
+// ------------------------------------------------------------
+// AUDIT & SETTINGS
+// ------------------------------------------------------------
+
+model ActivityLog {
+  id        String         @id @default(cuid())
+  userId    String?        @map("user_id")
+  action    ActivityAction
+  entity    String         // "Student", "Attendance", dll
+  entityId  String?        @map("entity_id")
+  ipAddress String?        @map("ip_address")
+  metadata  Json?
+  createdAt DateTime       @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@map("activity_logs")
+}
+
+model SchoolSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("school_settings")
+}

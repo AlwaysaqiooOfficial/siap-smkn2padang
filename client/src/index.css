@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+/* Kotak video kamera html5-qrcode agar mengikuti rounded container */
+#qr-reader video {
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+#qr-reader {
+  border: none !important;
+}
