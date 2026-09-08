@@ -115,23 +115,5 @@
       "lastPresentAt": "2026-09-03T07:14:00.000Z",
       "lastResetAt": "2026-09-08T00:00:00.000Z"
     }
-  },
-  {
-    "id": "5bcc146a-8f16-4dc3-b405-d183ec99e845",
-    "nis": "232323232",
-    "nisn": "323232323",
-    "fullName": "fxgdxcgg",
-    "gender": "P",
-    "birthDate": "0003-03-04",
-    "majorId": "mjr-akl",
-    "classId": "cls-x-akl-1",
-    "address": null,
-    "qrToken": "SIAP-3A6FFD12FB32-MTSXN9N4",
-    "userId": null,
-    "parentId": null,
-    "isActive": true,
-    "emailSent": false,
-    "createdAt": "2026-09-08T17:17:43.697Z",
-    "updatedAt": "2026-09-08T17:17:43.697Z"
   }
 ]
