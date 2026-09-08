@@ -8,15 +8,5 @@
     "isHomeroom": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
     "updatedAt": "2026-09-08T17:27:20.522Z"
-  },
-  {
-    "id": "tch-2",
-    "userId": null,
-    "nip": "198702022012012002",
-    "fullName": "Buk Ando",
-    "phone": "081234560002",
-    "isHomeroom": false,
-    "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T17:27:36.184Z"
   }
 ]
