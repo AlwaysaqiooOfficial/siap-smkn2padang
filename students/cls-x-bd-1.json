@@ -115,5 +115,23 @@
       "lastPresentAt": "2026-09-06T08:35:00.000Z",
       "lastResetAt": "2026-09-08T00:00:00.000Z"
     }
+  },
+  {
+    "id": "72bcbd3e-9a0e-444f-bad6-10daf0a18d9b",
+    "nis": "72843528548625",
+    "nisn": "242343545",
+    "fullName": "tdghhhhd",
+    "gender": "L",
+    "birthDate": "+222222-03-04",
+    "majorId": "mjr-bd",
+    "classId": "cls-x-bd-1",
+    "address": null,
+    "qrToken": "SIAP-78B672FE0807-MTSVDNNZ",
+    "userId": null,
+    "parentId": null,
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-08T16:14:16.079Z",
+    "updatedAt": "2026-09-08T16:14:16.079Z"
   }
 ]
