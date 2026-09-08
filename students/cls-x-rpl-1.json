@@ -15,16 +15,16 @@
     "isActive": true,
     "emailSent": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T15:57:44.162Z",
+    "updatedAt": "2026-09-08T16:01:39.436Z",
     "parent": {
       "id": "prn-1",
       "userId": null,
       "fullName": "Bapak Aditya",
-      "email": "ortu1@gmail.com",
+      "email": "sha@gmail.com",
       "phone": "082111111111",
       "address": "Jl. Sudirman No. 1",
       "createdAt": "2026-09-08T03:53:18.674Z",
-      "updatedAt": "2026-09-08T03:53:18.674Z"
+      "updatedAt": "2026-09-08T16:01:39.435Z"
     },
     "attendance": {
       "totalPresent": 15,
