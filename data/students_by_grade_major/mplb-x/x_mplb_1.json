@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-7",
+    "userId": null,
+    "nis": "260007",
+    "nisn": "0060000007",
+    "fullName": "Elisa Putri",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 7, Padang",
+    "majorId": "mjr-mplb",
+    "classId": "cls-x-mplb-1",
+    "parentId": "prn-7",
+    "qrToken": "QR-596065C76071",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "std-21",
+    "userId": null,
+    "nis": "260021",
+    "nisn": "0060000021",
+    "fullName": "Siti Badriah",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 21, Padang",
+    "majorId": "mjr-mplb",
+    "classId": "cls-x-mplb-1",
+    "parentId": "prn-1",
+    "qrToken": "QR-635684ECEAC8",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

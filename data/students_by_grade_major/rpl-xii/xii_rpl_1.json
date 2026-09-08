@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-4",
+    "userId": null,
+    "nis": "260004",
+    "nisn": "0060000004",
+    "fullName": "Bagus Triyono",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 4, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-xii-rpl-1",
+    "parentId": "prn-4",
+    "qrToken": "QR-DCE5C6D97BB3",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "std-18",
+    "userId": null,
+    "nis": "260018",
+    "nisn": "0060000018",
+    "fullName": "Putri Marino",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 18, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-xii-rpl-1",
+    "parentId": "prn-8",
+    "qrToken": "QR-202CD16C02C7",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

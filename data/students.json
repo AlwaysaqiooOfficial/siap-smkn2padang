@@ -11,10 +11,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
     "parentId": "prn-1",
-    "qrToken": "QR-9F1688654F78",
+    "qrToken": "QR-376C2843FFC9",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-2",
@@ -28,10 +28,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
     "parentId": "prn-2",
-    "qrToken": "QR-46FF8C63E1AF",
+    "qrToken": "QR-41C5E8F895DB",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-3",
@@ -45,10 +45,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-xi-rpl-1",
     "parentId": "prn-3",
-    "qrToken": "QR-6F7701AD3BF0",
+    "qrToken": "QR-62E035FE4BED",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-4",
@@ -62,10 +62,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-xii-rpl-1",
     "parentId": "prn-4",
-    "qrToken": "QR-8A96A852E615",
+    "qrToken": "QR-DCE5C6D97BB3",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-5",
@@ -79,10 +79,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-x-tkj-1",
     "parentId": "prn-5",
-    "qrToken": "QR-EF5921A5130F",
+    "qrToken": "QR-B81C7C1F44DC",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-6",
@@ -96,10 +96,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-xi-tkj-1",
     "parentId": "prn-6",
-    "qrToken": "QR-32F4FEE510BA",
+    "qrToken": "QR-ADCD2191AD0C",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-7",
@@ -113,10 +113,10 @@
     "majorId": "mjr-mplb",
     "classId": "cls-x-mplb-1",
     "parentId": "prn-7",
-    "qrToken": "QR-C227A3869D2D",
+    "qrToken": "QR-596065C76071",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-8",
@@ -130,10 +130,10 @@
     "majorId": "mjr-mplb",
     "classId": "cls-xi-mplb-1",
     "parentId": "prn-8",
-    "qrToken": "QR-06A4194D9292",
+    "qrToken": "QR-73818A3C5452",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-9",
@@ -147,10 +147,10 @@
     "majorId": "mjr-akl",
     "classId": "cls-x-akl-1",
     "parentId": "prn-9",
-    "qrToken": "QR-47B3DEC555B6",
+    "qrToken": "QR-B92E6500260B",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-10",
@@ -164,10 +164,10 @@
     "majorId": "mjr-akl",
     "classId": "cls-xi-akl-1",
     "parentId": "prn-10",
-    "qrToken": "QR-CF11F94D8B7B",
+    "qrToken": "QR-65F31E74383C",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-11",
@@ -181,10 +181,10 @@
     "majorId": "mjr-ulw",
     "classId": "cls-x-ulw-1",
     "parentId": "prn-1",
-    "qrToken": "QR-2392CA68A6E8",
+    "qrToken": "QR-1372D6F241DF",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-12",
@@ -198,10 +198,10 @@
     "majorId": "mjr-ulw",
     "classId": "cls-xi-ulw-1",
     "parentId": "prn-2",
-    "qrToken": "QR-F9FB5E268EED",
+    "qrToken": "QR-0643854AF9B5",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-13",
@@ -215,10 +215,10 @@
     "majorId": "mjr-bd",
     "classId": "cls-x-bd-1",
     "parentId": "prn-3",
-    "qrToken": "QR-517F86A476E3",
+    "qrToken": "QR-2B89B8375C64",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-14",
@@ -232,10 +232,10 @@
     "majorId": "mjr-br",
     "classId": "cls-x-br-1",
     "parentId": "prn-4",
-    "qrToken": "QR-AD495347F895",
+    "qrToken": "QR-7EFB6A429340",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-15",
@@ -249,10 +249,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
     "parentId": "prn-5",
-    "qrToken": "QR-52C8964DC87C",
+    "qrToken": "QR-78563AC4784A",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-16",
@@ -266,10 +266,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
     "parentId": "prn-6",
-    "qrToken": "QR-49C05F59BC9E",
+    "qrToken": "QR-55EF883C87B5",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-17",
@@ -283,10 +283,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-xi-rpl-1",
     "parentId": "prn-7",
-    "qrToken": "QR-9A3054370458",
+    "qrToken": "QR-155AA79164EF",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-18",
@@ -300,10 +300,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-xii-rpl-1",
     "parentId": "prn-8",
-    "qrToken": "QR-F6A691D7720D",
+    "qrToken": "QR-202CD16C02C7",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-19",
@@ -317,10 +317,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-x-tkj-1",
     "parentId": "prn-9",
-    "qrToken": "QR-885A1D535BFC",
+    "qrToken": "QR-64C3B85E0CDA",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-20",
@@ -334,10 +334,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-xi-tkj-1",
     "parentId": "prn-10",
-    "qrToken": "QR-4DA1269D4571",
+    "qrToken": "QR-A1359533FE4C",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-21",
@@ -351,10 +351,10 @@
     "majorId": "mjr-mplb",
     "classId": "cls-x-mplb-1",
     "parentId": "prn-1",
-    "qrToken": "QR-0E2236971302",
+    "qrToken": "QR-635684ECEAC8",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-22",
@@ -368,10 +368,10 @@
     "majorId": "mjr-mplb",
     "classId": "cls-xi-mplb-1",
     "parentId": "prn-2",
-    "qrToken": "QR-1A28DC65BB75",
+    "qrToken": "QR-F943803AA754",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-23",
@@ -385,10 +385,10 @@
     "majorId": "mjr-akl",
     "classId": "cls-x-akl-1",
     "parentId": "prn-3",
-    "qrToken": "QR-402319CD0635",
+    "qrToken": "QR-A8DDD6E9F1ED",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-24",
@@ -402,10 +402,10 @@
     "majorId": "mjr-akl",
     "classId": "cls-xi-akl-1",
     "parentId": "prn-4",
-    "qrToken": "QR-CB8B85EA22C6",
+    "qrToken": "QR-3AB9FB2D7783",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-25",
@@ -419,10 +419,10 @@
     "majorId": "mjr-ulw",
     "classId": "cls-x-ulw-1",
     "parentId": "prn-5",
-    "qrToken": "QR-9A9F4019C938",
+    "qrToken": "QR-A0C2E9A13F53",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-26",
@@ -436,10 +436,10 @@
     "majorId": "mjr-ulw",
     "classId": "cls-xi-ulw-1",
     "parentId": "prn-6",
-    "qrToken": "QR-F9450455044C",
+    "qrToken": "QR-430D90998A6C",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-27",
@@ -453,10 +453,10 @@
     "majorId": "mjr-bd",
     "classId": "cls-x-bd-1",
     "parentId": "prn-7",
-    "qrToken": "QR-0254BEC8E5BB",
+    "qrToken": "QR-85B103CEBAF3",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-28",
@@ -470,10 +470,10 @@
     "majorId": "mjr-br",
     "classId": "cls-x-br-1",
     "parentId": "prn-8",
-    "qrToken": "QR-49F7CE0F51AF",
+    "qrToken": "QR-D09AD35BF16F",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-29",
@@ -487,10 +487,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
     "parentId": "prn-9",
-    "qrToken": "QR-1E6EBAA40DA1",
+    "qrToken": "QR-E83DBBC93CCC",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-30",
@@ -504,9 +504,9 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
     "parentId": "prn-10",
-    "qrToken": "QR-95ED3E602287",
+    "qrToken": "QR-F6F59D4BD8C4",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   }
 ]

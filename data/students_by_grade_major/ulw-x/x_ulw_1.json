@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-11",
+    "userId": null,
+    "nis": "260011",
+    "nisn": "0060000011",
+    "fullName": "Irfan Bachdim",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 11, Padang",
+    "majorId": "mjr-ulw",
+    "classId": "cls-x-ulw-1",
+    "parentId": "prn-1",
+    "qrToken": "QR-1372D6F241DF",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "std-25",
+    "userId": null,
+    "nis": "260025",
+    "nisn": "0060000025",
+    "fullName": "Wanda Hamidah",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 25, Padang",
+    "majorId": "mjr-ulw",
+    "classId": "cls-x-ulw-1",
+    "parentId": "prn-5",
+    "qrToken": "QR-A0C2E9A13F53",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

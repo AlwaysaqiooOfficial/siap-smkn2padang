@@ -11,10 +11,10 @@
     "majorId": "mjr-tkj",
     "classId": "cls-x-tkj-1",
     "parentId": "prn-5",
-    "qrToken": "QR-EF5921A5130F",
+    "qrToken": "QR-B81C7C1F44DC",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-19",
@@ -28,9 +28,9 @@
     "majorId": "mjr-tkj",
     "classId": "cls-x-tkj-1",
     "parentId": "prn-9",
-    "qrToken": "QR-885A1D535BFC",
+    "qrToken": "QR-64C3B85E0CDA",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   }
 ]

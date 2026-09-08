@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-12",
+    "userId": null,
+    "nis": "260012",
+    "nisn": "0060000012",
+    "fullName": "Intan Permata",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 12, Padang",
+    "majorId": "mjr-ulw",
+    "classId": "cls-xi-ulw-1",
+    "parentId": "prn-2",
+    "qrToken": "QR-0643854AF9B5",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "std-26",
+    "userId": null,
+    "nis": "260026",
+    "nisn": "0060000026",
+    "fullName": "Xaverius Jun",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 26, Padang",
+    "majorId": "mjr-ulw",
+    "classId": "cls-xi-ulw-1",
+    "parentId": "prn-6",
+    "qrToken": "QR-430D90998A6C",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

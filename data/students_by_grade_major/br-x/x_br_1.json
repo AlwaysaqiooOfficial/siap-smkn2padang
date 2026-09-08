@@ -11,10 +11,10 @@
     "majorId": "mjr-br",
     "classId": "cls-x-br-1",
     "parentId": "prn-4",
-    "qrToken": "QR-AD495347F895",
+    "qrToken": "QR-7EFB6A429340",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-28",
@@ -28,9 +28,9 @@
     "majorId": "mjr-br",
     "classId": "cls-x-br-1",
     "parentId": "prn-8",
-    "qrToken": "QR-49F7CE0F51AF",
+    "qrToken": "QR-D09AD35BF16F",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   }
 ]

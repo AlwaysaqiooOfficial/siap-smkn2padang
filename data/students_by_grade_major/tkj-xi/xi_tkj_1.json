@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-6",
+    "userId": null,
+    "nis": "260006",
+    "nisn": "0060000006",
+    "fullName": "Dimas Anggara",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 6, Padang",
+    "majorId": "mjr-tkj",
+    "classId": "cls-xi-tkj-1",
+    "parentId": "prn-6",
+    "qrToken": "QR-ADCD2191AD0C",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "std-20",
+    "userId": null,
+    "nis": "260020",
+    "nisn": "0060000020",
+    "fullName": "Randi Pangalila",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 20, Padang",
+    "majorId": "mjr-tkj",
+    "classId": "cls-xi-tkj-1",
+    "parentId": "prn-10",
+    "qrToken": "QR-A1359533FE4C",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

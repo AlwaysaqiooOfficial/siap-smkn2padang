@@ -11,10 +11,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
     "parentId": "prn-2",
-    "qrToken": "QR-46FF8C63E1AF",
+    "qrToken": "QR-41C5E8F895DB",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-16",
@@ -28,10 +28,10 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
     "parentId": "prn-6",
-    "qrToken": "QR-49C05F59BC9E",
+    "qrToken": "QR-55EF883C87B5",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-30",
@@ -45,9 +45,9 @@
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
     "parentId": "prn-10",
-    "qrToken": "QR-95ED3E602287",
+    "qrToken": "QR-F6F59D4BD8C4",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   }
 ]

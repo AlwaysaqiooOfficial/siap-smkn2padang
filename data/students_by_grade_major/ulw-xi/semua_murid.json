@@ -11,10 +11,10 @@
     "majorId": "mjr-ulw",
     "classId": "cls-xi-ulw-1",
     "parentId": "prn-2",
-    "qrToken": "QR-F9FB5E268EED",
+    "qrToken": "QR-0643854AF9B5",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   },
   {
     "id": "std-26",
@@ -28,9 +28,9 @@
     "majorId": "mjr-ulw",
     "classId": "cls-xi-ulw-1",
     "parentId": "prn-6",
-    "qrToken": "QR-F9450455044C",
+    "qrToken": "QR-430D90998A6C",
     "isActive": true,
-    "createdAt": "2026-09-08T03:48:31.975Z",
-    "updatedAt": "2026-09-08T03:48:31.975Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
   }
 ]

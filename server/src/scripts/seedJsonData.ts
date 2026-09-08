@@ -257,33 +257,55 @@ async function seedJsonDatabase() {
     console.log(`  ✅ ${file.name}: ${file.data.length} data ditulis`);
   }
 
-  // KHUSUS DATA MURID: DIBAGI KEDALAM FOLDER KHUSUS
-  console.log("\n📁 Memisahkan file JSON murid ke FOLDER KHUSUS...");
+  // KHUSUS DATA MURID: STRUKTUR FOLDER JURUSAN & TINGKAT KELAS (misal: rpl-x, rpl-xi, rpl-xii, tkj-x, dll)
+  console.log("\n📁 Memisahkan file JSON murid ke struktur FOLDER KHUSUS (misal: rpl-x, rpl-xi, rpl-xii)...");
 
-  const MAJOR_DIR = path.join(DATA_DIR, "students_per_major");
-  const CLASS_DIR = path.join(DATA_DIR, "students_per_class");
+  const gradeRoman = (grade: number) => (grade === 10 ? "x" : grade === 11 ? "xi" : "xii");
 
-  if (!fs.existsSync(MAJOR_DIR)) fs.mkdirSync(MAJOR_DIR, { recursive: true });
-  if (!fs.existsSync(CLASS_DIR)) fs.mkdirSync(CLASS_DIR, { recursive: true });
+  const STUDENTS_DIR = path.join(DATA_DIR, "students_by_grade_major");
+  if (!fs.existsSync(STUDENTS_DIR)) fs.mkdirSync(STUDENTS_DIR, { recursive: true });
 
-  // 1. Folder Per Jurusan (data/students_per_major/rpl.json, etc)
   for (const m of majors) {
     const majorStudents = students.filter((s) => s.majorId === m.id);
-    const fileName = `${m.code.toLowerCase()}.json`;
-    fs.writeFileSync(path.join(MAJOR_DIR, fileName), JSON.stringify(majorStudents, null, 2), "utf8");
-    console.log(`  📂 data/students_per_major/${fileName}: ${majorStudents.length} murid (${m.name})`);
+
+    for (const grade of [10, 11, 12]) {
+      const roman = gradeRoman(grade);
+      const folderName = `${m.code.toLowerCase()}-${roman}`;
+      const folderPath = path.join(STUDENTS_DIR, folderName);
+
+      const gradeMajorClasses = classes.filter((c) => c.majorId === m.id && c.grade === grade);
+      const gradeMajorStudents = majorStudents.filter((s) => {
+        const cls = classes.find((c) => c.id === s.classId);
+        return cls && cls.grade === grade;
+      });
+
+      if (gradeMajorClasses.length > 0 || gradeMajorStudents.length > 0) {
+        if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true });
+
+        // 1. Simpan gabungan murid untuk jurusan & tingkat ini
+        fs.writeFileSync(
+          path.join(folderPath, "semua_murid.json"),
+          JSON.stringify(gradeMajorStudents, null, 2),
+          "utf8"
+        );
+
+        // 2. Simpan per rombel kelas di folder tersebut (misal: x_rpl_1.json)
+        for (const cls of gradeMajorClasses) {
+          const clsStudents = gradeMajorStudents.filter((s) => s.classId === cls.id);
+          const cleanClsName = cls.name.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+          fs.writeFileSync(
+            path.join(folderPath, `${cleanClsName}.json`),
+            JSON.stringify(clsStudents, null, 2),
+            "utf8"
+          );
+        }
+
+        console.log(`  📂 data/students_by_grade_major/${folderName}/: ${gradeMajorStudents.length} murid`);
+      }
+    }
   }
 
-  // 2. Folder Per Kelas (data/students_per_class/x_rpl_1.json, etc)
-  for (const c of classes) {
-    const classStudents = students.filter((s) => s.classId === c.id);
-    const cleanClassName = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "_");
-    const fileName = `${cleanClassName}.json`;
-    fs.writeFileSync(path.join(CLASS_DIR, fileName), JSON.stringify(classStudents, null, 2), "utf8");
-    console.log(`  📂 data/students_per_class/${fileName}: ${classStudents.length} murid (Kelas ${c.name})`);
-  }
-
-  console.log("\n🎉 Berhasil mengisi SELURUH file JSON ke folder khusus!");
+  console.log("\n🎉 Berhasil mengisi SELURUH file JSON ke folder khusus per jurusan-tingkat!");
 }
 
 seedJsonDatabase().catch(console.error);
