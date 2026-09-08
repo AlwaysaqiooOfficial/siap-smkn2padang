@@ -115,23 +115,5 @@
       "lastPresentAt": "2026-09-03T07:14:00.000Z",
       "lastResetAt": "2026-09-08T00:00:00.000Z"
     }
-  },
-  {
-    "id": "d463b01b-a42f-4810-9827-5b0b189eaed7",
-    "nis": "132323",
-    "nisn": "54454545",
-    "fullName": "hjyhfdg",
-    "gender": "L",
-    "birthDate": "+275760-04-03",
-    "majorId": "mjr-akl",
-    "classId": "cls-x-akl-1",
-    "address": null,
-    "qrToken": "SIAP-36840D5301C4-MTSU5MDX",
-    "userId": null,
-    "parentId": null,
-    "isActive": true,
-    "emailSent": false,
-    "createdAt": "2026-09-08T15:40:01.557Z",
-    "updatedAt": "2026-09-08T15:40:01.557Z"
   }
 ]
