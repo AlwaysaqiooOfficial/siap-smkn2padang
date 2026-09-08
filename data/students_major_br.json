@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-14",
+    "userId": null,
+    "nis": "260014",
+    "nisn": "0060000014",
+    "fullName": "Larasati Suwandi",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 14, Padang",
+    "majorId": "mjr-br",
+    "classId": "cls-x-br-1",
+    "parentId": "prn-4",
+    "qrToken": "QR-0B7FE16D7E7C",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-28",
+    "userId": null,
+    "nis": "260028",
+    "nisn": "0060000028",
+    "fullName": "Zack Lee",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 28, Padang",
+    "majorId": "mjr-br",
+    "classId": "cls-x-br-1",
+    "parentId": "prn-8",
+    "qrToken": "QR-A8984F7F0583",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

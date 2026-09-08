@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-9",
+    "userId": null,
+    "nis": "260009",
+    "nisn": "0060000009",
+    "fullName": "Gita Gutawa",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 9, Padang",
+    "majorId": "mjr-akl",
+    "classId": "cls-x-akl-1",
+    "parentId": "prn-9",
+    "qrToken": "QR-CB9B47B812B2",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-23",
+    "userId": null,
+    "nis": "260023",
+    "nisn": "0060000023",
+    "fullName": "Utari Dewi",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 23, Padang",
+    "majorId": "mjr-akl",
+    "classId": "cls-x-akl-1",
+    "parentId": "prn-3",
+    "qrToken": "QR-A887217EFCE0",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

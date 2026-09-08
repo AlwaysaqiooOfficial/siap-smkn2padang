@@ -1,0 +1,53 @@
+[
+  {
+    "id": "std-1",
+    "userId": null,
+    "nis": "260001",
+    "nisn": "0060000001",
+    "fullName": "Aditya Pratama",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 1, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-1",
+    "parentId": "prn-1",
+    "qrToken": "QR-7EB4EA45820D",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-15",
+    "userId": null,
+    "nis": "260015",
+    "nisn": "0060000015",
+    "fullName": "Muhammad Rizky",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 15, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-1",
+    "parentId": "prn-5",
+    "qrToken": "QR-2CA4FE808193",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-29",
+    "userId": null,
+    "nis": "260029",
+    "nisn": "0060000029",
+    "fullName": "Ayu Tingting",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 29, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-1",
+    "parentId": "prn-9",
+    "qrToken": "QR-B903362A8B85",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

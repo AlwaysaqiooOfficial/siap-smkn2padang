@@ -1,0 +1,53 @@
+[
+  {
+    "id": "std-2",
+    "userId": null,
+    "nis": "260002",
+    "nisn": "0060000002",
+    "fullName": "Annisa Rahma",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 2, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-2",
+    "parentId": "prn-2",
+    "qrToken": "QR-92A0DC7D83C2",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-16",
+    "userId": null,
+    "nis": "260016",
+    "nisn": "0060000016",
+    "fullName": "Nabila Syakieb",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 16, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-2",
+    "parentId": "prn-6",
+    "qrToken": "QR-B2C8113413D4",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-30",
+    "userId": null,
+    "nis": "260030",
+    "nisn": "0060000030",
+    "fullName": "Bima Arya",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 30, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-2",
+    "parentId": "prn-10",
+    "qrToken": "QR-7654D8C6AE20",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

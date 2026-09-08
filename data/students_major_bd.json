@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-13",
+    "userId": null,
+    "nis": "260013",
+    "nisn": "0060000013",
+    "fullName": "Kevin Sanjaya",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 13, Padang",
+    "majorId": "mjr-bd",
+    "classId": "cls-x-bd-1",
+    "parentId": "prn-3",
+    "qrToken": "QR-B3BC8E831983",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-27",
+    "userId": null,
+    "nis": "260027",
+    "nisn": "0060000027",
+    "fullName": "Yura Yunita",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 27, Padang",
+    "majorId": "mjr-bd",
+    "classId": "cls-x-bd-1",
+    "parentId": "prn-7",
+    "qrToken": "QR-9B8228EAD9CC",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

@@ -3,49 +3,49 @@
     "id": "mjr-rpl",
     "code": "RPL",
     "name": "Rekayasa Perangkat Lunak",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "mjr-tkj",
     "code": "TKJ",
     "name": "Teknik Komputer dan Jaringan",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "mjr-mplb",
     "code": "MPLB",
     "name": "Manajemen Perkantoran dan Layanan Bisnis",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "mjr-akl",
     "code": "AKL",
     "name": "Akuntansi dan Keuangan Lembaga",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "mjr-ulw",
     "code": "ULW",
     "name": "Usaha Layanan Wisata",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "mjr-bd",
     "code": "BD",
     "name": "Bisnis Digital",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "mjr-br",
     "code": "BR",
     "name": "Bisnis Retail",
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   }
 ]

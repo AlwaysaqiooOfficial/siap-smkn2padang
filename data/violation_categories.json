@@ -3,30 +3,30 @@
     "id": "vc-1",
     "name": "Terlambat Masuk Sekolah",
     "points": 5,
-    "createdAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "vc-2",
     "name": "Tidak Memakai Seragam Lengkap",
     "points": 10,
-    "createdAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "vc-3",
     "name": "Meninggalkan Kelas Tanpa Izin",
     "points": 15,
-    "createdAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "vc-4",
     "name": "Merokok di Lingkungan Sekolah",
     "points": 50,
-    "createdAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "vc-5",
     "name": "Terlibat Tawuran",
     "points": 100,
-    "createdAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z"
   }
 ]

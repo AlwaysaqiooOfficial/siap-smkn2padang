@@ -257,7 +257,27 @@ async function seedJsonDatabase() {
     console.log(`  ✅ ${file.name}: ${file.data.length} data ditulis`);
   }
 
-  console.log("🎉 Berhasil mengisi SELURUH file JSON database!");
+  // KHUSUS DATA MURID: DIBAGI PER JURUSAN & PER KELAS
+  console.log("\n📁 Memisahkan file JSON murid per Jurusan dan per Kelas...");
+
+  // 1. Per Jurusan
+  for (const m of majors) {
+    const majorStudents = students.filter((s) => s.majorId === m.id);
+    const fileName = `students_major_${m.code.toLowerCase()}.json`;
+    fs.writeFileSync(path.join(DATA_DIR, fileName), JSON.stringify(majorStudents, null, 2), "utf8");
+    console.log(`  📂 ${fileName}: ${majorStudents.length} murid (${m.name})`);
+  }
+
+  // 2. Per Kelas
+  for (const c of classes) {
+    const classStudents = students.filter((s) => s.classId === c.id);
+    const cleanClassName = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+    const fileName = `students_class_${cleanClassName}.json`;
+    fs.writeFileSync(path.join(DATA_DIR, fileName), JSON.stringify(classStudents, null, 2), "utf8");
+    console.log(`  📂 ${fileName}: ${classStudents.length} murid (Kelas ${c.name})`);
+  }
+
+  console.log("\n🎉 Berhasil mengisi SELURUH file JSON database!");
 }
 
 seedJsonDatabase().catch(console.error);

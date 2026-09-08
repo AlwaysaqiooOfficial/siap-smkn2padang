@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-5",
+    "userId": null,
+    "nis": "260005",
+    "nisn": "0060000005",
+    "fullName": "Citra Dewi",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 5, Padang",
+    "majorId": "mjr-tkj",
+    "classId": "cls-x-tkj-1",
+    "parentId": "prn-5",
+    "qrToken": "QR-CB719BF3BE76",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-19",
+    "userId": null,
+    "nis": "260019",
+    "nisn": "0060000019",
+    "fullName": "Qory Sandioriva",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 19, Padang",
+    "majorId": "mjr-tkj",
+    "classId": "cls-x-tkj-1",
+    "parentId": "prn-9",
+    "qrToken": "QR-0121A077C005",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

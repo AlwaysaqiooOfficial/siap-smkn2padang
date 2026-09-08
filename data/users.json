@@ -3,231 +3,231 @@
     "id": "usr-admin",
     "email": "admin@smkn2padang.sch.id",
     "username": "admin",
-    "passwordHash": "$2b$12$VOkEMdrWtP9yvuboo8YjEOw6IR1ozVIU6D3zDdmm0hHyzGyXK.ld2",
+    "passwordHash": "$2b$12$IeEqRt4vYovM/10boRDlteSvjqeKPtWmgCPPEuQwCyqi4M82GIoX6",
     "role": "SUPER_ADMIN",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-scanner",
     "email": "smkn2padang@smkn2padang.sch.id",
     "username": "smkn2padang",
-    "passwordHash": "$2b$12$H.GAnAAIKICdJTCmHkIDBejey9MH688u9lXfE6pU/68tw1xIyp5Pq",
+    "passwordHash": "$2b$12$bwMO5f3yAY/UnmPXYfhM4ueUmleqSUsOTf1Ep67CaP5Nki1D2mNC6",
     "role": "SCANNER",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-1",
     "email": "wali.rpl1@smkn2padang.sch.id",
     "username": "wali.rpl1",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "WALI_KELAS",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-2",
     "email": "wali.rpl2@smkn2padang.sch.id",
     "username": "wali.rpl2",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "WALI_KELAS",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-3",
     "email": "wali.tkj1@smkn2padang.sch.id",
     "username": "wali.tkj1",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "WALI_KELAS",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-4",
     "email": "wali.mplb1@smkn2padang.sch.id",
     "username": "wali.mplb1",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "WALI_KELAS",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-5",
     "email": "wali.akl1@smkn2padang.sch.id",
     "username": "wali.akl1",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "WALI_KELAS",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-6",
     "email": "wali.ulw1@smkn2padang.sch.id",
     "username": "wali.ulw1",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "WALI_KELAS",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-7",
     "email": "guru.hendra@smkn2padang.sch.id",
     "username": "guru.hendra",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "GURU",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-8",
     "email": "guru.indah@smkn2padang.sch.id",
     "username": "guru.indah",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "GURU",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-tch-9",
     "email": "guru.joko@smkn2padang.sch.id",
     "username": "guru.joko",
-    "passwordHash": "$2b$12$OWeMEhsJYPxDSne71EsOKurhrmzWxHO6ye.kyn2XoS2OrhU9i7CPq",
+    "passwordHash": "$2b$12$io2u2LD0LfYW9RGpn5Gr1.KsLcO8OMu7JRmLZcFsBTXg3BWbpT2.O",
     "role": "GURU",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-1",
     "email": "ortu1@gmail.com",
     "username": "ortu1",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-2",
     "email": "ortu2@gmail.com",
     "username": "ortu2",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-3",
     "email": "ortu3@gmail.com",
     "username": "ortu3",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-4",
     "email": "ortu4@gmail.com",
     "username": "ortu4",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-5",
     "email": "ortu5@gmail.com",
     "username": "ortu5",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-6",
     "email": "ortu6@gmail.com",
     "username": "ortu6",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-7",
     "email": "ortu7@gmail.com",
     "username": "ortu7",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-8",
     "email": "ortu8@gmail.com",
     "username": "ortu8",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-9",
     "email": "ortu9@gmail.com",
     "username": "ortu9",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "usr-prn-10",
     "email": "ortu10@gmail.com",
     "username": "ortu10",
-    "passwordHash": "$2b$12$kTgHnAzqM6pzl7aYMHk31uJ13.kThz9SQtamfFMmBZEifId5d3/vO",
+    "passwordHash": "$2b$12$M4pTxFLYhOq/zLIMHXcYvuflnzDrz1MkXUrtPEJwHVHqUsDk2bfZe",
     "role": "ORANG_TUA",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:38:45.502Z",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   }
 ]

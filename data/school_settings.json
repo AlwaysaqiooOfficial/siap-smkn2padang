@@ -3,30 +3,30 @@
     "id": "set-1",
     "key": "attendance_start_time",
     "value": "05:00",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "set-2",
     "key": "attendance_late_after",
     "value": "07:30",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "set-3",
     "key": "attendance_end_time",
     "value": "10:00",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "set-4",
     "key": "auto_alfa_cron_time",
     "value": "10:00",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   },
   {
     "id": "set-5",
     "key": "violation_notify_min_points",
     "value": "10",
-    "updatedAt": "2026-09-08T03:38:45.502Z"
+    "updatedAt": "2026-09-08T03:44:28.349Z"
   }
 ]

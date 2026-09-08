@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-3",
+    "userId": null,
+    "nis": "260003",
+    "nisn": "0060000003",
+    "fullName": "Arief Hidayat",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 3, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-xi-rpl-1",
+    "parentId": "prn-3",
+    "qrToken": "QR-93C8060AAD55",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-17",
+    "userId": null,
+    "nis": "260017",
+    "nisn": "0060000017",
+    "fullName": "Oki Setiana",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 17, Padang",
+    "majorId": "mjr-rpl",
+    "classId": "cls-xi-rpl-1",
+    "parentId": "prn-7",
+    "qrToken": "QR-B850320D8A3B",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]

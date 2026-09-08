@@ -1,0 +1,36 @@
+[
+  {
+    "id": "std-10",
+    "userId": null,
+    "nis": "260010",
+    "nisn": "0060000010",
+    "fullName": "Hafiz Maulana",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 10, Padang",
+    "majorId": "mjr-akl",
+    "classId": "cls-xi-akl-1",
+    "parentId": "prn-10",
+    "qrToken": "QR-4784A13FE786",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  },
+  {
+    "id": "std-24",
+    "userId": null,
+    "nis": "260024",
+    "nisn": "0060000024",
+    "fullName": "Vino G. Bastian",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 24, Padang",
+    "majorId": "mjr-akl",
+    "classId": "cls-xi-akl-1",
+    "parentId": "prn-4",
+    "qrToken": "QR-9CA1C928B164",
+    "isActive": true,
+    "createdAt": "2026-09-08T03:44:28.349Z",
+    "updatedAt": "2026-09-08T03:44:28.349Z"
+  }
+]
