@@ -8,5 +8,15 @@
     "isHomeroom": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
     "updatedAt": "2026-09-08T17:27:20.522Z"
+  },
+  {
+    "id": "20c0759b-6e53-4800-8d4f-87b8ad61ae0f",
+    "userId": "a0410176-064f-4787-bc03-6b229dd3190c",
+    "fullName": "Buk Ando",
+    "nip": "1211213232222",
+    "phone": "0821732817382",
+    "isHomeroom": false,
+    "createdAt": "2026-09-08T17:32:38.729Z",
+    "updatedAt": "2026-09-08T17:32:38.729Z"
   }
 ]
