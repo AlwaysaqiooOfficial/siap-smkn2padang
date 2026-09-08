@@ -13,9 +13,9 @@
     "name": "X RPL 2",
     "grade": 10,
     "majorId": "mjr-rpl",
-    "homeroomTeacherId": "20c0759b-6e53-4800-8d4f-87b8ad61ae0f",
+    "homeroomTeacherId": null,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T17:32:45.664Z"
+    "updatedAt": "2026-09-08T17:36:28.677Z"
   },
   {
     "id": "cls-x-tkj-1",
