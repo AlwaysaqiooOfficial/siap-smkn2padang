@@ -18,5 +18,15 @@
     "isHomeroom": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
     "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "3eff31b3-51ad-42e1-980f-b5558a5c06ef",
+    "userId": "fb60019b-6681-4df4-be84-a3fae89fe448",
+    "fullName": "ersaer",
+    "nip": "",
+    "phone": "",
+    "isHomeroom": false,
+    "createdAt": "2026-09-08T15:31:56.502Z",
+    "updatedAt": "2026-09-08T15:31:56.502Z"
   }
 ]
