@@ -115,5 +115,23 @@
       "lastPresentAt": "2026-09-03T07:14:00.000Z",
       "lastResetAt": "2026-09-08T00:00:00.000Z"
     }
+  },
+  {
+    "id": "09279cda-7dbc-42bf-92b3-8cb8ee86be45",
+    "nis": "23333333333",
+    "nisn": "243242",
+    "fullName": "dfsfsf",
+    "gender": "L",
+    "birthDate": "2332-02-03",
+    "majorId": "mjr-akl",
+    "classId": "cls-x-akl-1",
+    "address": null,
+    "qrToken": "SIAP-D9FAB54747B2-MTSVH8PH",
+    "userId": null,
+    "parentId": null,
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-08T16:17:03.317Z",
+    "updatedAt": "2026-09-08T16:17:03.317Z"
   }
 ]
