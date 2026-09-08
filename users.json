@@ -26,21 +26,10 @@
     "email": "guru@smkn2padang.sch.id",
     "username": "guru",
     "passwordHash": "$2b$12$EVeoqtV1rK4suzn4sn17X.CXFRzCZISAdBFKogghQlWrXtJ2ME7Ha",
-    "role": "WALI_KELAS",
-    "isActive": true,
-    "lastLoginAt": null,
-    "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T03:53:18.674Z"
-  },
-  {
-    "id": "fb60019b-6681-4df4-be84-a3fae89fe448",
-    "email": "guru-2ec7985f4134452981157e7b4d415c7e@internal.siap.local",
-    "username": "guru_2ec7985f4134452981157e7b4d415c7e",
-    "passwordHash": "$2b$12$p7Hk.nO0JDSM.oxTVo3SPO9.yQaUuV0VTFz7Pxf/7fBAxZkFy1Cvy",
     "role": "GURU",
     "isActive": true,
     "lastLoginAt": null,
-    "createdAt": "2026-09-08T15:31:56.499Z",
-    "updatedAt": "2026-09-08T15:31:56.499Z"
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T15:33:03.250Z"
   }
 ]
