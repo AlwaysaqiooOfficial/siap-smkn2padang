@@ -6,7 +6,7 @@
     "nisn": "0060000001",
     "fullName": "Aditya Pratama",
     "gender": "L",
-    "birthDate": "2008-05-15T00:00:00.000Z",
+    "birthDate": "2008-05-15",
     "address": "Jl. Sudirman No. 1",
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-1",
@@ -15,7 +15,7 @@
     "isActive": true,
     "emailSent": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T15:56:43.799Z",
     "parent": {
       "id": "prn-1",
       "userId": null,
