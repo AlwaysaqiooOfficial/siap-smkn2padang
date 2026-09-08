@@ -6,7 +6,7 @@
     "nisn": "0060000002",
     "fullName": "Annisa Rahma",
     "gender": "P",
-    "birthDate": "2008-05-15T00:00:00.000Z",
+    "birthDate": "2008-05-15",
     "address": "Jl. Sudirman No. 2",
     "majorId": "mjr-rpl",
     "classId": "cls-x-rpl-2",
@@ -15,16 +15,16 @@
     "isActive": true,
     "emailSent": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T16:12:33.710Z",
     "parent": {
       "id": "prn-1",
       "userId": null,
       "fullName": "Bapak Aditya",
-      "email": "ortu1@gmail.com",
+      "email": "ortu1eftrghgh@gmail.com",
       "phone": "082111111111",
       "address": "Jl. Sudirman No. 1",
       "createdAt": "2026-09-08T03:53:18.674Z",
-      "updatedAt": "2026-09-08T03:53:18.674Z"
+      "updatedAt": "2026-09-08T16:12:33.710Z"
     },
     "attendance": {
       "totalPresent": 18,
