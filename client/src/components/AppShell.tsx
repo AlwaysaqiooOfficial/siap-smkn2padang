@@ -22,11 +22,18 @@ export function AppShell({ title, navItems = [], children }: Props) {
       <header className="border-b bg-white px-4 py-3">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <div className="flex items-center gap-4">
-            <img
-              src="/logo-sekolah.png"
-              alt="Logo SMKN 2 Padang"
-              className="aspect-square h-14 w-14 flex-shrink-0 rounded-full bg-white object-contain p-0.5"
-            />
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <img
+                src="/logo-sekolah.png"
+                alt="Logo SMKN 2 Padang"
+                className="aspect-square h-12 w-12 rounded-full bg-white object-contain p-0.5"
+              />
+              <img
+                src="/logo-jurusan.png"
+                alt="Logo Jurusan"
+                className="aspect-square h-12 w-12 rounded-full bg-white object-contain p-0.5"
+              />
+            </div>
             <div>
               <p className="text-sm font-semibold leading-none text-slate-800">{title}</p>
               <p className="text-xs text-slate-400">

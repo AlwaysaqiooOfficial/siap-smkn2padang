@@ -1,6 +1,6 @@
 # GitHub JSON Database Setup — SIAP SMKN 2 PADANG
 
-File-file database JSON aplikasi ini disimpan di folder `data/` dan disinkronkan ke GitHub repository private.
+File-file database JSON aplikasi ini disimpan di root GitHub repository private dan disinkronkan otomatis setelah perubahan API berhasil.
 
 ## Repositori Target
 `https://github.com/AlwaysaqiooOfficial/siap-smkn2padang`
@@ -28,39 +28,30 @@ File-file database JSON aplikasi ini disimpan di folder `data/` dan disinkronkan
    GITHUB_OWNER=AlwaysaqiooOfficial
    GITHUB_REPO=siap-smkn2padang
    GITHUB_BRANCH=main
-   GITHUB_DATA_DIR=data
+   GITHUB_DATA_DIR=.
+   GITHUB_SYNC_ENABLED=true
    ```
 
 ---
 
-## Struktur File Database (`data/`)
+## Struktur File Database di Root Repository
 
 | File JSON | Isi Data |
 |---|---|
 | `users.json` | Akun pengguna (Admin, Wali Kelas, Guru, Scanner, Ortu, Siswa) |
 | `teachers.json` | Profil Guru |
-| `parents.json` | Profil Orang Tua |
-| `students.json` | Profil Siswa (termasuk NIS, NISN, QR Token) |
+| `students/*.json` | Profil siswa per kelas, termasuk data orang tua dan ringkasan absensi |
 | `majors.json` | Jurusan |
 | `classes.json` | Kelas |
-| `academic_years.json` | Tahun Ajaran |
-| `semesters.json` | Semester Aktif |
-| `attendance.json` | Data Absensi Harian |
-| `attendance_logs.json` | Log Scan / Perubahan Absensi |
-| `permissions.json` | Pengajuan Izin / Sakit / Dispensasi |
-| `violations.json` | Catatan Pelanggaran Siswa |
-| `violation_categories.json` | Kategori Pelanggaran & Poin |
-| `notifications.json` | Notifikasi Pengguna |
-| `email_logs.json` | Log Pengiriman Email |
-| `activity_logs.json` | Log Aktivitas Login/Logout/CRUD |
-| `school_settings.json` | Pengaturan Jam Absensi & Auto-Alfa |
-| `student_class_histories.json` | Riwayat Kelas Siswa per Semester |
+| `README.md` | Dokumentasi struktur data |
+
+Data operasional seperti absensi, izin, pelanggaran, notifikasi, dan log tetap disimpan di MySQL. Setelah request `POST`, `PUT`, `PATCH`, atau `DELETE` berhasil, server mengekspor master data dan file siswa per kelas ke GitHub menggunakan token.
 
 ---
 
 ## Cara Ekspor Data dari Database Lokal ke JSON
 
-Jika kamu memiliki data di MySQL/Prisma dan ingin mengekspornya ke folder `data/`:
+Jika kamu memiliki data di MySQL/Prisma dan ingin mengekspornya ke repository GitHub:
 
 ```bash
 cd server

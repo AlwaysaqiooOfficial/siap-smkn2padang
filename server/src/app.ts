@@ -6,8 +6,18 @@ import { env } from "./config/env";
 import routes from "./routes";
 import { errorHandler, notFoundHandler } from "./middlewares/error.middleware";
 import { sanitizeInput } from "./middlewares/sanitize.middleware";
+import { githubSyncMiddleware } from "./middlewares/githubSync.middleware";
+import { loadCollections } from "./services/jsonDatabase";
 
 const app = express();
+
+// Initialize JSON database from GitHub on startup
+if (env.GITHUB_SYNC_ENABLED) {
+  loadCollections().catch(err => {
+    console.error("❌ Failed to load collections:", err);
+    process.exit(1);
+  });
+}
 
 // Hanya aktifkan jika benar-benar di belakang reverse proxy (lihat catatan TRUST_PROXY di .env.example) —
 // diperlukan agar req.ip (dipakai rate limiting & activity_logs) membaca IP klien asli, bukan IP proxy.
@@ -26,6 +36,7 @@ app.use(
 );
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
+app.use(githubSyncMiddleware);
 
 // Sanitasi rekursif body/params (strip tag HTML/script & null byte) SEBELUM masuk ke validasi Zod.
 app.use(sanitizeInput);

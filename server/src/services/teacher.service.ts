@@ -1,27 +1,39 @@
-import { prisma } from "../config/db";
 import { AppError } from "../middlewares/error.middleware";
 import { hashPassword } from "../utils/password";
 import { randomUUID } from "node:crypto";
 import type { CreateTeacherInput, UpdateTeacherInput } from "../schemas/teacher.schema";
-
-const includeDefault = {
-  user: { select: { id: true, email: true, username: true, role: true, isActive: true, lastLoginAt: true } },
-  homeroomClass: { select: { id: true, name: true } },
-};
+import { UserRepository, TeacherRepository, ClassRepository } from "./repositories";
 
 export async function listTeachers() {
-  return prisma.teacher.findMany({ include: includeDefault, orderBy: { fullName: "asc" } });
+  const teachers = TeacherRepository.findMany();
+  return teachers.map(teacher => {
+    const user = teacher.userId ? UserRepository.findUnique(teacher.userId) : null;
+    const homeroomClass = ClassRepository.findFirst(c => c.homeroomTeacherId === teacher.id);
+    return {
+      ...teacher,
+      user: user ? { id: user.id, email: user.email, username: user.username, role: user.role, isActive: user.isActive, lastLoginAt: user.lastLoginAt } : null,
+      homeroomClass: homeroomClass ? { id: homeroomClass.id, name: homeroomClass.name } : null
+    };
+  }).sort((a, b) => a.fullName.localeCompare(b.fullName));
 }
 
 export async function getTeacherById(id: string) {
-  const teacher = await prisma.teacher.findUnique({ where: { id }, include: includeDefault });
+  const teacher = TeacherRepository.findUnique(id);
   if (!teacher) throw new AppError("Guru tidak ditemukan", 404);
-  return teacher;
+  
+  const user = teacher.userId ? UserRepository.findUnique(teacher.userId) : null;
+  const homeroomClass = ClassRepository.findFirst(c => c.homeroomTeacherId === id);
+  
+  return {
+    ...teacher,
+    user: user ? { id: user.id, email: user.email, username: user.username, role: user.role, isActive: user.isActive, lastLoginAt: user.lastLoginAt } : null,
+    homeroomClass: homeroomClass ? { id: homeroomClass.id, name: homeroomClass.name } : null
+  };
 }
 
 export async function createTeacher(input: CreateTeacherInput) {
   if (input.nip) {
-    const nipTaken = await prisma.teacher.findUnique({ where: { nip: input.nip } });
+    const nipTaken = TeacherRepository.findFirst(t => t.nip === input.nip);
     if (nipTaken) throw new AppError("NIP sudah digunakan", 409);
   }
 
@@ -30,53 +42,72 @@ export async function createTeacher(input: CreateTeacherInput) {
   const username = `guru_${internalId}`;
   const passwordHash = await hashPassword(randomUUID());
 
-  const emailTaken = await prisma.user.findUnique({ where: { email } });
+  const emailTaken = UserRepository.findFirst(u => u.email === email);
   if (emailTaken) throw new AppError("Email sudah digunakan", 409);
 
-  return prisma.user.create({
-    data: {
-      email,
-      username,
-      passwordHash,
-      role: input.role,
-      teacher: {
-        create: {
-          fullName: input.fullName,
-          nip: input.nip,
-          phone: input.phone,
-          isHomeroom: false,
-        },
-      },
-    },
-    include: { teacher: true },
+  const userId = randomUUID();
+  const teacherId = randomUUID();
+
+  await UserRepository.create({
+    id: userId,
+    email,
+    username,
+    passwordHash,
+    role: input.role,
+    isActive: true,
+    lastLoginAt: null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   });
+
+  const teacher = await TeacherRepository.create({
+    id: teacherId,
+    userId,
+    fullName: input.fullName,
+    nip: input.nip || "",
+    phone: input.phone || "",
+    isHomeroom: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  });
+
+  const user = UserRepository.findUnique(userId);
+  return {
+    ...teacher,
+    user: { id: user!.id, email: user!.email, username: user!.username, role: user!.role, isActive: user!.isActive, lastLoginAt: user!.lastLoginAt }
+  };
 }
 
 export async function updateTeacher(id: string, input: UpdateTeacherInput) {
   const teacher = await getTeacherById(id);
 
-  if (input.email) {
-    const taken = await prisma.user.findFirst({ where: { email: input.email, NOT: { id: teacher.user.id } } });
+  if (input.email && teacher.user) {
+    const taken = UserRepository.findFirst(u => u.email === input.email && u.id !== teacher.user!.id);
     if (taken) throw new AppError("Email sudah digunakan", 409);
   }
   if (input.nip) {
-    const taken = await prisma.teacher.findFirst({ where: { nip: input.nip, NOT: { id } } });
+    const taken = TeacherRepository.findFirst(t => t.nip === input.nip && t.id !== id);
     if (taken) throw new AppError("NIP sudah digunakan", 409);
   }
 
-  const userData: Record<string, unknown> = {};
-  if (input.email) userData.email = input.email;
-  if (input.role) userData.role = input.role;
-  if (typeof input.isActive === "boolean") userData.isActive = input.isActive;
+  if (teacher.user && input.email) {
+    await UserRepository.update(teacher.user.id, { email: input.email });
+  }
+  if (teacher.user && input.role) {
+    await UserRepository.update(teacher.user.id, { role: input.role });
+  }
+  if (teacher.user && typeof input.isActive === "boolean") {
+    await UserRepository.update(teacher.user.id, { isActive: input.isActive });
+  }
 
-  const teacherData: Record<string, unknown> = {};
-  if (input.fullName) teacherData.fullName = input.fullName;
-  if (input.nip) teacherData.nip = input.nip;
-  if (input.phone) teacherData.phone = input.phone;
-  if (input.role) teacherData.isHomeroom = false;
+  const updateData: any = {};
+  if (input.fullName) updateData.fullName = input.fullName;
+  if (input.nip) updateData.nip = input.nip;
+  if (input.phone) updateData.phone = input.phone;
+  if (input.role) updateData.isHomeroom = false;
 
-  await prisma.user.update({ where: { id: teacher.user.id }, data: userData });
-  return prisma.teacher.update({ where: { id }, data: teacherData, include: includeDefault });
+  await TeacherRepository.update(id, updateData);
+  return getTeacherById(id);
 }
 
 export async function deleteTeacher(id: string) {
@@ -87,6 +118,9 @@ export async function deleteTeacher(id: string) {
       409
     );
   }
-  // Cascade: User dihapus akan otomatis menghapus Teacher (onDelete: Cascade di schema).
-  await prisma.user.delete({ where: { id: teacher.user.id } });
+  
+  if (teacher.user) {
+    await UserRepository.delete(teacher.user.id);
+  }
+  await TeacherRepository.delete(id);
 }

@@ -1,6 +1,7 @@
 import { getAutoAlfaCronTime, nowMinutesOfDay, timeStringToMinutes } from "../utils/schoolSettings";
 import { runAutoAlfaJob } from "../services/autoAlfa.service";
 import { logger } from "../utils/logger";
+import { env } from "../config/env";
 
 const CHECK_INTERVAL_MS = 60 * 1000; // cek setiap 1 menit
 
@@ -11,8 +12,14 @@ function todayKey(d: Date): string {
   return d.toISOString().slice(0, 10); // YYYY-MM-DD
 }
 
+// Check if Prisma is available (DATABASE_URL exists)
+const isPrismaAvailable = () => {
+  return !!env.DATABASE_URL && env.DATABASE_URL.length > 0;
+};
+
 async function maybeRunAutoAlfa() {
   if (isRunning) return; // hindari overlap jika satu run belum selesai
+  if (!isPrismaAvailable()) return; // Skip if no database
 
   try {
     const cronTime = await getAutoAlfaCronTime(); // dibaca dari school_settings tiap kali, TIDAK hard-coded

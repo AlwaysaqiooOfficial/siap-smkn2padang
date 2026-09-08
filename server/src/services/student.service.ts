@@ -1,23 +1,15 @@
-import { prisma } from "../config/db";
 import { AppError } from "../middlewares/error.middleware";
 import { generateQrToken } from "../utils/qrToken";
 import { generateQrImage } from "../utils/qrImage";
 import { hashPassword } from "../utils/password";
 import { paginationSchema, toSkipTake, meta, type PaginationInput } from "../utils/pagination";
 import type { CreateStudentInput, UpdateStudentInput, CreateStudentAccountInput } from "../schemas/student.schema";
+import { StudentRepository, ClassRepository, MajorRepository, UserRepository } from "./repositories";
 
-const includeDefault = {
-  major: { select: { id: true, code: true, name: true } },
-  class: { select: { id: true, name: true, grade: true } },
-  parent: {
-    select: {
-      id: true,
-      fullName: true,
-      phone: true,
-      user: { select: { email: true } },
-    },
-  },
-};
+const includeDefault = (student: any) => ({
+  major: MajorRepository.findUnique(student.majorId),
+  class: ClassRepository.findUnique(student.classId),
+});
 
 export interface StudentListFilter extends PaginationInput {
   classId?: string;
@@ -28,37 +20,34 @@ export async function listStudents(filter: StudentListFilter) {
   const { page, limit, search } = paginationSchema.parse(filter);
   const classId = filter.classId;
   const majorId = filter.majorId;
-  const where = {
-    classId: classId || undefined,
-    majorId: majorId || undefined,
-    ...(search
-      ? {
-          OR: [
-            { fullName: { contains: search } },
-            { nis: { contains: search } },
-            { nisn: { contains: search } },
-          ],
-        }
-      : {}),
-  };
 
-  const [data, total] = await Promise.all([
-    prisma.student.findMany({
-      where,
-      include: includeDefault,
-      orderBy: { fullName: "asc" },
-      ...toSkipTake({ page, limit, search }),
-    }),
-    prisma.student.count({ where }),
-  ]);
+  let students = StudentRepository.findMany();
+
+  if (classId) students = students.filter(s => s.classId === classId);
+  if (majorId) students = students.filter(s => s.majorId === majorId);
+  if (search) {
+    students = students.filter(s =>
+      s.fullName.includes(search) || s.nis.includes(search) || s.nisn.includes(search)
+    );
+  }
+
+  const total = students.length;
+  const { skip, take } = toSkipTake({ page, limit, search });
+  const data = students.slice(skip, skip + take).map(s => ({
+    ...s,
+    ...includeDefault(s),
+  }));
 
   return { data, meta: meta(total, { page, limit, search }) };
 }
 
 export async function getStudentById(id: string) {
-  const student = await prisma.student.findUnique({ where: { id }, include: includeDefault });
+  const student = StudentRepository.findUnique(id);
   if (!student) throw new AppError("Siswa tidak ditemukan", 404);
-  return student;
+  return {
+    ...student,
+    ...includeDefault(student),
+  };
 }
 
 function assertOwnClass(student: { classId: string }, scopedClassId?: string) {
@@ -72,11 +61,9 @@ export async function createStudent(input: CreateStudentInput, scopedClassId?: s
     throw new AppError("Wali kelas hanya dapat menambahkan siswa ke kelasnya sendiri", 403);
   }
 
-  const [nisTaken, nisnTaken, kelas] = await Promise.all([
-    prisma.student.findUnique({ where: { nis: input.nis } }),
-    prisma.student.findUnique({ where: { nisn: input.nisn } }),
-    prisma.class.findUnique({ where: { id: input.classId } }),
-  ]);
+  const nisTaken = StudentRepository.findFirst(s => s.nis === input.nis);
+  const nisnTaken = StudentRepository.findFirst(s => s.nisn === input.nisn);
+  const kelas = ClassRepository.findUnique(input.classId);
 
   if (nisTaken) throw new AppError("NIS sudah terdaftar", 409);
   if (nisnTaken) throw new AppError("NISN sudah terdaftar", 409);
@@ -85,38 +72,29 @@ export async function createStudent(input: CreateStudentInput, scopedClassId?: s
     throw new AppError("Kelas yang dipilih tidak sesuai dengan jurusan", 422);
   }
 
-  if (input.parentId) {
-    const parent = await prisma.parent.findUnique({ where: { id: input.parentId } });
-    if (!parent) throw new AppError("Data orang tua tidak ditemukan", 404);
-  }
-
-  // Pastikan qrToken benar-benar unik (probabilitas tabrakan sangat kecil, tapi tetap dijaga).
   let qrToken = generateQrToken();
-  while (await prisma.student.findUnique({ where: { qrToken } })) {
+  while (StudentRepository.findFirst(s => s.qrToken === qrToken)) {
     qrToken = generateQrToken();
   }
 
-  const activeSemester = await prisma.semester.findFirst({ where: { isActive: true } });
-
-  return prisma.$transaction(async (tx) => {
-    const student = await tx.student.create({
-      data: { ...input, qrToken },
-      include: includeDefault,
-    });
-
-    if (activeSemester) {
-      await tx.studentClassHistory.create({
-        data: {
-          studentId: student.id,
-          classId: student.classId,
-          semesterId: activeSemester.id,
-          note: "Pendaftaran siswa baru",
-        },
-      });
-    }
-
-    return student;
+  const student = await StudentRepository.create({
+    id: crypto.randomUUID(),
+    ...input,
+    address: input.address || null,
+    birthDate: typeof input.birthDate === 'string' ? input.birthDate : new Date(input.birthDate).toISOString().split('T')[0],
+    qrToken,
+    userId: null,
+    parentId: input.parentId || null,
+    isActive: true,
+    emailSent: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   });
+
+  return {
+    ...student,
+    ...includeDefault(student),
+  };
 }
 
 export async function updateStudent(id: string, input: UpdateStudentInput, scopedClassId?: string) {
@@ -130,82 +108,36 @@ export async function updateStudent(id: string, input: UpdateStudentInput, scope
   }
 
   if (studentData.nis) {
-    const taken = await prisma.student.findFirst({ where: { nis: studentData.nis, NOT: { id } } });
+    const taken = StudentRepository.findFirst(s => s.nis === studentData.nis && s.id !== id);
     if (taken) throw new AppError("NIS sudah terdaftar", 409);
   }
   if (studentData.nisn) {
-    const taken = await prisma.student.findFirst({ where: { nisn: studentData.nisn, NOT: { id } } });
+    const taken = StudentRepository.findFirst(s => s.nisn === studentData.nisn && s.id !== id);
     if (taken) throw new AppError("NISN sudah terdaftar", 409);
   }
 
   let newClass = null;
   if (studentData.classId && studentData.classId !== student.classId) {
-    newClass = await prisma.class.findUnique({ where: { id: studentData.classId } });
+    newClass = ClassRepository.findUnique(studentData.classId);
     if (!newClass) throw new AppError("Kelas tidak ditemukan", 404);
   }
 
-  if (studentData.parentId) {
-    const parent = await prisma.parent.findUnique({ where: { id: studentData.parentId } });
-    if (!parent) throw new AppError("Data orang tua tidak ditemukan", 404);
-  }
+  // Convert birthDate to string if it's a Date
+  const updateData = {
+    ...studentData,
+    birthDate: studentData.birthDate 
+      ? (typeof studentData.birthDate === 'string' ? studentData.birthDate : new Date(studentData.birthDate).toISOString().split('T')[0])
+      : undefined
+  };
 
-  const parentDataChanged = parentEmail !== undefined || parentFullName !== undefined || parentPhone !== undefined;
-  const parentId = studentData.parentId === undefined ? student.parentId : studentData.parentId;
-  if (parentDataChanged && !parentId) {
-    throw new AppError("Siswa belum memiliki data orang tua", 422);
-  }
-
-  if (parentEmail && parentId) {
-    const parent = await prisma.parent.findUnique({ where: { id: parentId }, select: { userId: true } });
-    if (!parent) throw new AppError("Data orang tua tidak ditemukan", 404);
-    const emailTaken = await prisma.user.findFirst({
-      where: { email: parentEmail, NOT: { id: parent.userId } },
-    });
-    if (emailTaken) throw new AppError("Email orang tua sudah digunakan", 409);
-  }
-
-  return prisma.$transaction(async (tx) => {
-    const updated = await tx.student.update({ where: { id }, data: studentData, include: includeDefault });
-
-    if (parentId && parentDataChanged) {
-      if (parentEmail) {
-        const parent = await tx.parent.findUnique({ where: { id: parentId }, select: { userId: true } });
-        if (!parent) throw new AppError("Data orang tua tidak ditemukan", 404);
-        await tx.user.update({ where: { id: parent.userId }, data: { email: parentEmail } });
-      }
-      await tx.parent.update({
-        where: { id: parentId },
-        data: {
-          fullName: parentFullName,
-          phone: parentPhone,
-        },
-      });
-    }
-
-    // Jika kelas berubah (kenaikan kelas/pindah kelas), catat riwayat — data lama TIDAK dihapus.
-    if (newClass) {
-      const activeSemester = await tx.semester.findFirst({ where: { isActive: true } });
-      if (activeSemester) {
-        await tx.studentClassHistory.create({
-          data: {
-            studentId: id,
-            classId: newClass.id,
-            semesterId: activeSemester.id,
-            note: `Pindah dari kelas sebelumnya ke ${newClass.name}`,
-          },
-        });
-      }
-    }
-
-    return updated;
-  });
+  await StudentRepository.update(id, updateData);
+  return getStudentById(id);
 }
 
 export async function deleteStudent(id: string, scopedClassId?: string) {
-  // Soft-delete: nonaktifkan, jangan hapus permanen — riwayat absensi/pelanggaran harus tetap ada.
   const student = await getStudentById(id);
   assertOwnClass(student, scopedClassId);
-  return prisma.student.update({ where: { id }, data: { isActive: false } });
+  return StudentRepository.update(id, { isActive: false });
 }
 
 export async function getStudentQrImage(id: string) {
@@ -214,30 +146,33 @@ export async function getStudentQrImage(id: string) {
   return { studentId: student.id, fullName: student.fullName, qrToken: student.qrToken, qrImage };
 }
 
-/** Membuat akun login (role SISWA) untuk siswa yang sudah ada, agar Dashboard Siswa bisa dipakai. */
 export async function createStudentAccount(studentId: string, input: CreateStudentAccountInput) {
-  const student = await prisma.student.findUnique({ where: { id: studentId } });
+  const student = StudentRepository.findUnique(studentId);
   if (!student) throw new AppError("Siswa tidak ditemukan", 404);
   if (student.userId) throw new AppError("Siswa ini sudah memiliki akun login", 409);
 
-  const [emailTaken, usernameTaken] = await Promise.all([
-    prisma.user.findUnique({ where: { email: input.email } }),
-    prisma.user.findUnique({ where: { username: input.username } }),
-  ]);
+  const emailTaken = UserRepository.findFirst(u => u.email === input.email);
+  const usernameTaken = UserRepository.findFirst(u => u.username === input.username);
+  
   if (emailTaken) throw new AppError("Email sudah digunakan", 409);
   if (usernameTaken) throw new AppError("Username sudah digunakan", 409);
 
   const passwordHash = await hashPassword(input.password);
+  const userId = crypto.randomUUID();
 
-  const user = await prisma.user.create({
-    data: {
-      email: input.email,
-      username: input.username,
-      passwordHash,
-      role: "SISWA",
-      student: { connect: { id: studentId } },
-    },
+  const user = await UserRepository.create({
+    id: userId,
+    email: input.email,
+    username: input.username,
+    passwordHash,
+    role: "SISWA",
+    isActive: true,
+    lastLoginAt: null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   });
+
+  await StudentRepository.update(studentId, { userId });
 
   return { userId: user.id, studentId, email: user.email, username: user.username };
 }

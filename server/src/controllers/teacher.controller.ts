@@ -27,7 +27,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
     const input = createTeacherSchema.parse(req.body);
     const data = await teacherService.createTeacher(input);
     await prisma.activityLog.create({
-      data: { userId: req.user!.userId, action: "CREATE", entity: "Teacher", entityId: data.teacher!.id, ipAddress: req.ip },
+      data: { userId: req.user!.userId, action: "CREATE", entity: "Teacher", entityId: data.id, ipAddress: req.ip },
     });
     return created(res, data, "Guru berhasil dibuat");
   } catch (err) {

@@ -5,12 +5,16 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   PORT: z.coerce.number().default(4000),
   CLIENT_URL: z.string().url().default("http://localhost:5173"),
-  DATABASE_URL: z.string().min(1, "DATABASE_URL wajib diisi"),
+  DATABASE_URL: z.string().min(1).optional(), // Optional - can use GitHub JSON instead
   GITHUB_TOKEN: z.string().min(1).optional(),
   GITHUB_OWNER: z.string().min(1).default("AlwaysaqiooOfficial"),
   GITHUB_REPO: z.string().min(1).default("siap-smkn2padang"),
   GITHUB_BRANCH: z.string().min(1).default("main"),
-  GITHUB_DATA_DIR: z.string().min(1).default("data"),
+  GITHUB_DATA_DIR: z.string().default("."),
+  GITHUB_SYNC_ENABLED: z
+    .enum(["true", "false"])
+    .default("true")
+    .transform((value) => value === "true"),
   JWT_SECRET: z.string().min(32, "JWT_SECRET minimal 32 karakter demi keamanan"),
   JWT_EXPIRES_IN: z.string().default("8h"),
   TRUST_PROXY: z

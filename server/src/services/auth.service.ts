@@ -1,20 +1,13 @@
-import { prisma } from "../config/db";
 import { comparePassword } from "../utils/password";
 import { signToken } from "../utils/jwt";
 import { AppError } from "../middlewares/error.middleware";
 import type { LoginInput } from "../schemas/auth.schema";
+import { UserRepository, TeacherRepository } from "./repositories";
 
 export async function loginService(input: LoginInput, ipAddress?: string) {
-  const user = await prisma.user.findFirst({
-    where: {
-      OR: [{ email: input.identifier }, { username: input.identifier }],
-    },
-    include: {
-      teacher: true,
-      parent: true,
-      student: true,
-    },
-  });
+  const user = UserRepository.findFirst((u) => 
+    u.email === input.identifier || u.username === input.identifier
+  );
 
   if (!user || !user.isActive) {
     throw new AppError("Email/username atau password salah", 401);
@@ -26,61 +19,37 @@ export async function loginService(input: LoginInput, ipAddress?: string) {
 
   const isValidPassword = await comparePassword(input.password, user.passwordHash);
   if (!isValidPassword) {
-    await prisma.activityLog.create({
-      data: {
-        userId: user.id,
-        action: "LOGIN",
-        entity: "User",
-        entityId: user.id,
-        ipAddress,
-        metadata: { success: false },
-      },
-    });
     throw new AppError("Email/username atau password salah", 401);
   }
+
+  let selectedTeacher = null;
 
   if (user.role === "GURU" || user.role === "WALI_KELAS") {
     if (!input.teacherName) {
       return { requiresTeacherName: true as const };
     }
-    const selectedTeacher = await prisma.teacher.findFirst({
-      where: { fullName: { equals: input.teacherName.trim() } },
-      include: { homeroomClass: true },
-    });
+    const inputNameClean = input.teacherName.trim().replace(/\.$/, "").toLowerCase();
+    const allTeachers = TeacherRepository.findMany();
+
+    selectedTeacher = allTeachers.find(
+      (t) => t.fullName.trim().replace(/\.$/, "").toLowerCase() === inputNameClean
+    );
+
     if (!selectedTeacher) {
       throw new AppError("Nama guru tidak ditemukan di database", 401);
     }
-    if (!selectedTeacher.homeroomClass) {
+    if (!selectedTeacher.userId) {
       throw new AppError("Guru tersebut belum ditugaskan sebagai wali kelas", 403);
     }
-    if (user.teacher && user.teacher.fullName.trim().toLowerCase() !== input.teacherName.trim().toLowerCase()) {
-      throw new AppError("Nama guru tidak sesuai dengan akun dan password tersebut", 401);
-    }
-    user.teacher = selectedTeacher;
   }
 
   const role = user.role === "WALI_KELAS" ? "GURU" : user.role;
-  const token = signToken({ userId: user.id, role, teacherId: user.teacher?.id });
+  const token = signToken({ userId: user.id, role, teacherId: selectedTeacher?.id });
 
-  await prisma.$transaction([
-    prisma.user.update({
-      where: { id: user.id },
-      data: { lastLoginAt: new Date() },
-    }),
-    prisma.activityLog.create({
-      data: {
-        userId: user.id,
-        action: "LOGIN",
-        entity: "User",
-        entityId: user.id,
-        ipAddress,
-        metadata: { success: true },
-      },
-    }),
-  ]);
+  // Update last login
+  await UserRepository.update(user.id, { lastLoginAt: new Date().toISOString() });
 
-  const profile =
-    user.teacher ?? user.parent ?? user.student ?? { fullName: user.username };
+  const profile = selectedTeacher || { fullName: user.username };
 
   return {
     token,
@@ -95,10 +64,7 @@ export async function loginService(input: LoginInput, ipAddress?: string) {
 }
 
 export async function getMeService(userId: string) {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    include: { teacher: true, parent: true, student: { include: { class: true, major: true } } },
-  });
+  const user = UserRepository.findUnique(userId);
 
   if (!user) {
     throw new AppError("User tidak ditemukan", 404);

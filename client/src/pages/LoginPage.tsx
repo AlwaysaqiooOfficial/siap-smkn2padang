@@ -39,8 +39,8 @@ export default function LoginPage() {
       <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-2xl">
         <div className="mb-6 flex flex-col items-center gap-2">
           <img
-            src="/logo-sekolah.png"
-            alt="Logo SMKN 2 Padang"
+            src="/logo-jurusan.png"
+            alt="Logo Jurusan"
             className="aspect-square h-32 w-32 rounded-full bg-white object-contain p-0.5"
           />
           <h1 className="text-center text-xl font-bold text-slate-900">SIAP SMKN 2 PADANG</h1>

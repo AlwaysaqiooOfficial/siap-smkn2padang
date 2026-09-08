@@ -216,6 +216,7 @@ model Student {
   parentId       String?   @map("parent_id")
   qrToken        String    @unique @map("qr_token") // identifier unik untuk QR
   isActive       Boolean   @default(true) @map("is_active")
+  emailSent      Boolean   @default(false) @map("email_sent") // status pengiriman email ke orang tua
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
 

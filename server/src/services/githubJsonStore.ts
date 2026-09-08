@@ -27,8 +27,12 @@ export class GitHubJsonStore {
   }
 
   private filePath(fileName: string) {
-    if (!/^[a-z0-9_-]+\.json$/i.test(fileName)) {
+    if (!/^(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.json$/i.test(fileName)) {
       throw new Error("Nama file JSON tidak valid");
+    }
+
+    if (!env.GITHUB_DATA_DIR || env.GITHUB_DATA_DIR === "." || env.GITHUB_DATA_DIR === "/") {
+      return fileName;
     }
 
     return `${env.GITHUB_DATA_DIR}/${fileName}`;

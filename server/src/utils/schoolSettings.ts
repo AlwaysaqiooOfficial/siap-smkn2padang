@@ -32,8 +32,13 @@ export async function getAttendanceRules(): Promise<AttendanceRules> {
 
 /** Jam pemicu job auto-alfa ("HH:mm"), diambil dari school_settings — TIDAK hard-coded. */
 export async function getAutoAlfaCronTime(): Promise<string> {
-  const setting = await prisma.schoolSetting.findUnique({ where: { key: "auto_alfa_cron_time" } });
-  return setting?.value ?? env.AUTO_ALFA_CRON_TIME;
+  try {
+    const setting = await prisma.schoolSetting.findUnique({ where: { key: "auto_alfa_cron_time" } });
+    return setting?.value ?? env.AUTO_ALFA_CRON_TIME;
+  } catch (err) {
+    // Fallback jika Prisma tidak tersedia (DATABASE_URL tidak ada)
+    return env.AUTO_ALFA_CRON_TIME;
+  }
 }
 
 /**
@@ -41,9 +46,14 @@ export async function getAutoAlfaCronTime(): Promise<string> {
  * diambil dari school_settings (key: violation_notify_min_points). Default 10 jika belum diset.
  */
 export async function getViolationNotifyThreshold(): Promise<number> {
-  const setting = await prisma.schoolSetting.findUnique({
-    where: { key: "violation_notify_min_points" },
-  });
-  const parsed = Number(setting?.value);
-  return Number.isFinite(parsed) ? parsed : 10;
+  try {
+    const setting = await prisma.schoolSetting.findUnique({
+      where: { key: "violation_notify_min_points" },
+    });
+    const parsed = Number(setting?.value);
+    return Number.isFinite(parsed) ? parsed : 10;
+  } catch (err) {
+    // Fallback jika Prisma tidak tersedia
+    return 10;
+  }
 }

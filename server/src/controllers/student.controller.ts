@@ -32,7 +32,7 @@ export async function detail(req: Request, res: Response, next: NextFunction) {
   try {
     const scopedClassId = await resolveScopedClassId(req);
     const data = await studentService.getStudentById(req.params.id);
-    if (scopedClassId && data.class.id !== scopedClassId) {
+    if (scopedClassId && data.class && data.class.id !== scopedClassId) {
       return fail(res, "Anda tidak memiliki akses ke siswa ini", 403);
     }
     return ok(res, data, "Detail siswa berhasil diambil");
@@ -87,7 +87,7 @@ export async function qrCode(req: Request, res: Response, next: NextFunction) {
     const scopedClassId = await resolveScopedClassId(req);
     if (scopedClassId) {
       const student = await studentService.getStudentById(req.params.id);
-      if (student.class.id !== scopedClassId) {
+      if (student.class && student.class.id !== scopedClassId) {
         return fail(res, "Anda tidak memiliki akses ke siswa ini", 403);
       }
     }
@@ -103,7 +103,7 @@ export async function createAccount(req: Request, res: Response, next: NextFunct
     const scopedClassId = await resolveScopedClassId(req);
     if (scopedClassId) {
       const student = await studentService.getStudentById(req.params.id);
-      if (student.class.id !== scopedClassId) {
+      if (student.class && student.class.id !== scopedClassId) {
         return fail(res, "Anda tidak memiliki akses ke siswa ini", 403);
       }
     }
