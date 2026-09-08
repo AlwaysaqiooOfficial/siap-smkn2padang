@@ -1,0 +1,80 @@
+[
+  {
+    "id": "std-4",
+    "userId": null,
+    "nis": "260004",
+    "nisn": "0060000004",
+    "fullName": "Bagus Triyono",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 4",
+    "majorId": "mjr-rpl",
+    "classId": "cls-xii-rpl-1",
+    "parentId": "prn-1",
+    "qrToken": "QR-DCE5C6D97BB3",
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z",
+    "parent": {
+      "id": "prn-1",
+      "userId": null,
+      "fullName": "Bapak Aditya",
+      "email": "ortu1@gmail.com",
+      "phone": "082111111111",
+      "address": "Jl. Sudirman No. 1",
+      "createdAt": "2026-09-08T03:53:18.674Z",
+      "updatedAt": "2026-09-08T03:53:18.674Z"
+    },
+    "attendance": {
+      "totalPresent": 13,
+      "totalLate": 4,
+      "totalAbsent": 1,
+      "totalSick": 1,
+      "totalPermit": 0,
+      "totalDispensation": 1,
+      "presentToday": true,
+      "lastPresentAt": "2026-09-05T07:16:00.000Z",
+      "lastResetAt": "2026-09-08T00:00:00.000Z"
+    }
+  },
+  {
+    "id": "std-23",
+    "userId": null,
+    "nis": "260023",
+    "nisn": "0060000023",
+    "fullName": "Umi Marfuah",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Ujung Berung No. 1",
+    "majorId": "mjr-rpl",
+    "classId": "cls-xii-rpl-1",
+    "parentId": "prn-2",
+    "qrToken": "QR-W3X4Y5Z6A7B8",
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z",
+    "parent": {
+      "id": "prn-2",
+      "userId": null,
+      "fullName": "Bapak Annisa",
+      "email": "ortu2@gmail.com",
+      "phone": "082222222222",
+      "address": "Jl. Sudirman No. 2",
+      "createdAt": "2026-09-08T03:53:18.674Z",
+      "updatedAt": "2026-09-08T03:53:18.674Z"
+    },
+    "attendance": {
+      "totalPresent": 14,
+      "totalLate": 5,
+      "totalAbsent": 2,
+      "totalSick": 2,
+      "totalPermit": 1,
+      "totalDispensation": 0,
+      "presentToday": true,
+      "lastPresentAt": "2026-09-06T08:23:00.000Z",
+      "lastResetAt": "2026-09-08T00:00:00.000Z"
+    }
+  }
+]

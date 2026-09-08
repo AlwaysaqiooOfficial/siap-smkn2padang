@@ -1,0 +1,22 @@
+[
+  {
+    "id": "tch-1",
+    "userId": "usr-guru",
+    "nip": "198501012010011001",
+    "fullName": "Ahmad Dahlan",
+    "phone": "081234560001",
+    "isHomeroom": true,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "tch-2",
+    "userId": null,
+    "nip": "198702022012012002",
+    "fullName": "Budi Santoso",
+    "phone": "081234560002",
+    "isHomeroom": false,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

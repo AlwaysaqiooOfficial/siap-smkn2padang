@@ -1,0 +1,35 @@
+[
+  {
+    "id": "usr-admin",
+    "email": "admin@smkn2padang.sch.id",
+    "username": "admin",
+    "passwordHash": "$2b$12$O4dt7e33RccRuWN7aVLYouBy.WXJP8pxxExUTgy/SBVm9p.dp6vGO",
+    "role": "SUPER_ADMIN",
+    "isActive": true,
+    "lastLoginAt": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "usr-smkn2padang",
+    "email": "smkn2padang@smkn2padang.sch.id",
+    "username": "smkn2padang",
+    "passwordHash": "$2b$12$MLX6jsdwR6QqLM0wPsudI.LEi7MprzxuJr/nCg8pZicnWbRUr0ibG",
+    "role": "SCANNER",
+    "isActive": true,
+    "lastLoginAt": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "usr-guru",
+    "email": "guru@smkn2padang.sch.id",
+    "username": "guru",
+    "passwordHash": "$2b$12$EVeoqtV1rK4suzn4sn17X.CXFRzCZISAdBFKogghQlWrXtJ2ME7Ha",
+    "role": "WALI_KELAS",
+    "isActive": true,
+    "lastLoginAt": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
+]

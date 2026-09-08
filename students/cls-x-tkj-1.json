@@ -1,0 +1,80 @@
+[
+  {
+    "id": "std-5",
+    "userId": null,
+    "nis": "260005",
+    "nisn": "0060000005",
+    "fullName": "Citra Dewi",
+    "gender": "P",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Sudirman No. 5",
+    "majorId": "mjr-tkj",
+    "classId": "cls-x-tkj-1",
+    "parentId": "prn-2",
+    "qrToken": "QR-B81C7C1F44DC",
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z",
+    "parent": {
+      "id": "prn-2",
+      "userId": null,
+      "fullName": "Bapak Annisa",
+      "email": "ortu2@gmail.com",
+      "phone": "082222222222",
+      "address": "Jl. Sudirman No. 2",
+      "createdAt": "2026-09-08T03:53:18.674Z",
+      "updatedAt": "2026-09-08T03:53:18.674Z"
+    },
+    "attendance": {
+      "totalPresent": 12,
+      "totalLate": 4,
+      "totalAbsent": 3,
+      "totalSick": 0,
+      "totalPermit": 0,
+      "totalDispensation": 1,
+      "presentToday": false,
+      "lastPresentAt": "2026-09-03T07:06:00.000Z",
+      "lastResetAt": "2026-09-08T00:00:00.000Z"
+    }
+  },
+  {
+    "id": "std-14",
+    "userId": null,
+    "nis": "260014",
+    "nisn": "0060000014",
+    "fullName": "Lionel Messi",
+    "gender": "L",
+    "birthDate": "2008-05-15T00:00:00.000Z",
+    "address": "Jl. Nusantara No. 1",
+    "majorId": "mjr-tkj",
+    "classId": "cls-x-tkj-1",
+    "parentId": "prn-1",
+    "qrToken": "QR-U9V0W1X2Y3Z4",
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z",
+    "parent": {
+      "id": "prn-1",
+      "userId": null,
+      "fullName": "Bapak Aditya",
+      "email": "ortu1@gmail.com",
+      "phone": "082111111111",
+      "address": "Jl. Sudirman No. 1",
+      "createdAt": "2026-09-08T03:53:18.674Z",
+      "updatedAt": "2026-09-08T03:53:18.674Z"
+    },
+    "attendance": {
+      "totalPresent": 13,
+      "totalLate": 5,
+      "totalAbsent": 4,
+      "totalSick": 1,
+      "totalPermit": 1,
+      "totalDispensation": 0,
+      "presentToday": true,
+      "lastPresentAt": "2026-09-04T08:13:00.000Z",
+      "lastResetAt": "2026-09-08T00:00:00.000Z"
+    }
+  }
+]
