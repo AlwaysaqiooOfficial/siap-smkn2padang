@@ -58,9 +58,9 @@
     "name": "X BD 1",
     "grade": 10,
     "majorId": "mjr-bd",
-    "homeroomTeacherId": "3eff31b3-51ad-42e1-980f-b5558a5c06ef",
+    "homeroomTeacherId": null,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T15:32:54.925Z"
+    "updatedAt": "2026-09-08T15:33:11.604Z"
   },
   {
     "id": "cls-x-br-1",
