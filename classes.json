@@ -1,13 +1,101 @@
 [
-  {"id": "cls-x-rpl-1", "name": "X RPL 1", "grade": 10, "majorId": "mjr-rpl", "homeroomTeacherId": "tch-1", "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-rpl-2", "name": "X RPL 2", "grade": 10, "majorId": "mjr-rpl", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-tkj-1", "name": "X TKJ 1", "grade": 10, "majorId": "mjr-tkj", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-mplb-1", "name": "X MPLB 1", "grade": 10, "majorId": "mjr-mplb", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-akl-1", "name": "X AKL 1", "grade": 10, "majorId": "mjr-akl", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-ulw-1", "name": "X ULW 1", "grade": 10, "majorId": "mjr-ulw", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-bd-1", "name": "X BD 1", "grade": 10, "majorId": "mjr-bd", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-x-br-1", "name": "X BR 1", "grade": 10, "majorId": "mjr-br", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-xi-rpl-1", "name": "XI RPL 1", "grade": 11, "majorId": "mjr-rpl", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-xi-tkj-1", "name": "XI TKJ 1", "grade": 11, "majorId": "mjr-tkj", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"},
-  {"id": "cls-xii-rpl-1", "name": "XII RPL 1", "grade": 12, "majorId": "mjr-rpl", "homeroomTeacherId": null, "createdAt": "2026-09-08T03:53:18.674Z", "updatedAt": "2026-09-08T03:53:18.674Z"}
+  {
+    "id": "cls-x-rpl-1",
+    "name": "X RPL 1",
+    "grade": 10,
+    "majorId": "mjr-rpl",
+    "homeroomTeacherId": "tch-1",
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-rpl-2",
+    "name": "X RPL 2",
+    "grade": 10,
+    "majorId": "mjr-rpl",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-tkj-1",
+    "name": "X TKJ 1",
+    "grade": 10,
+    "majorId": "mjr-tkj",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-mplb-1",
+    "name": "X MPLB 1",
+    "grade": 10,
+    "majorId": "mjr-mplb",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-akl-1",
+    "name": "X AKL 1",
+    "grade": 10,
+    "majorId": "mjr-akl",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-ulw-1",
+    "name": "X ULW 1",
+    "grade": 10,
+    "majorId": "mjr-ulw",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-bd-1",
+    "name": "X BD 1",
+    "grade": 10,
+    "majorId": "mjr-bd",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-x-br-1",
+    "name": "X BR 1",
+    "grade": 10,
+    "majorId": "mjr-br",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-xi-rpl-1",
+    "name": "XI RPL 1",
+    "grade": 11,
+    "majorId": "mjr-rpl",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-xi-tkj-1",
+    "name": "XI TKJ 1",
+    "grade": 11,
+    "majorId": "mjr-tkj",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "cls-xii-rpl-1",
+    "name": "XII RPL 1",
+    "grade": 12,
+    "majorId": "mjr-rpl",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-08T03:53:18.674Z",
+    "updatedAt": "2026-09-08T03:53:18.674Z"
+  }
 ]
