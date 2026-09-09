@@ -15,16 +15,16 @@
     "isActive": true,
     "emailSent": false,
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T16:12:14.768Z",
+    "updatedAt": "2026-09-09T01:22:26.494Z",
     "parent": {
       "id": "prn-1",
       "userId": null,
       "fullName": "Bapak Aditya",
-      "email": "dsfsfg@gmail.com",
+      "email": "aqiostore123@gmail.com",
       "phone": "082111111111",
       "address": "Jl. Sudirman No. 1",
       "createdAt": "2026-09-08T03:53:18.674Z",
-      "updatedAt": "2026-09-08T16:12:14.768Z"
+      "updatedAt": "2026-09-09T01:22:26.494Z"
     },
     "attendance": {
       "totalPresent": 15,
