@@ -15,9 +15,9 @@ const collectionsReady = loadCollections().catch((err) => {
   throw err;
 });
 
-// Hanya aktifkan jika benar-benar di belakang reverse proxy (lihat catatan TRUST_PROXY di .env.example) —
-// diperlukan agar req.ip (dipakai rate limiting & activity_logs) membaca IP klien asli, bukan IP proxy.
-if (env.TRUST_PROXY) {
+// Vercel selalu meneruskan X-Forwarded-For; percayai satu proxy di production
+// agar rate limiting memakai IP klien dan tidak memicu validasi express-rate-limit.
+if (env.TRUST_PROXY || env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }
 
