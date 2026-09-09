@@ -18,5 +18,15 @@
     "isHomeroom": false,
     "createdAt": "2026-09-08T17:32:38.729Z",
     "updatedAt": "2026-09-08T17:32:38.729Z"
+  },
+  {
+    "id": "573e053c-50cc-4de1-81f5-7180cff28575",
+    "userId": "4fd1a699-8a09-4607-a1cc-cfd0c3fb8974",
+    "fullName": "dfdljfbdjibhkfdvkh",
+    "nip": "",
+    "phone": "",
+    "isHomeroom": false,
+    "createdAt": "2026-09-09T01:04:37.372Z",
+    "updatedAt": "2026-09-09T01:04:37.372Z"
   }
 ]
