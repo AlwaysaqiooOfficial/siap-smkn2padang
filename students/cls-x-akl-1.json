@@ -52,7 +52,7 @@
     "parentId": "prn-1",
     "qrToken": "QR-G1H2I3J4K5L6",
     "isActive": true,
-    "emailSent": false,
+    "emailSent": true,
     "createdAt": "2026-09-08T03:53:18.674Z",
     "updatedAt": "2026-09-08T03:53:18.674Z",
     "parent": {
