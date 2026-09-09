@@ -60,7 +60,7 @@ export default function LoginPage() {
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
-              placeholder="guru.budi"
+              placeholder=""
               autoComplete="username"
             />
           </div>}
@@ -98,7 +98,7 @@ export default function LoginPage() {
                 value={teacherName}
                 onChange={(e) => setTeacherName(e.target.value)}
                 className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
-                placeholder="Contoh: Budi Santoso, S.Kom"
+                placeholder=""
               />
               <p className="mt-1 text-xs text-slate-400">Masukkan nama sesuai data guru di sistem.</p>
             </div>
