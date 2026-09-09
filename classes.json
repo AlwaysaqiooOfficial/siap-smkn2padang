@@ -97,5 +97,14 @@
     "homeroomTeacherId": null,
     "createdAt": "2026-09-08T03:53:18.674Z",
     "updatedAt": "2026-09-08T03:53:18.674Z"
+  },
+  {
+    "id": "c70ab90f-b7cd-402f-b1fd-5aaad6cea97a",
+    "name": "XI AKL 5",
+    "grade": 11,
+    "majorId": "mjr-akl",
+    "homeroomTeacherId": null,
+    "createdAt": "2026-09-09T01:14:25.702Z",
+    "updatedAt": "2026-09-09T01:14:25.702Z"
   }
 ]
