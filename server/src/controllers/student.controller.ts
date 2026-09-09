@@ -6,7 +6,7 @@ import { created, fail, ok } from "../utils/apiResponse";
 import { prisma } from "../config/db";
 
 async function resolveScopedClassId(req: Request): Promise<string | undefined> {
-  if (req.user!.role === "WALI_KELAS" || req.user!.role === "GURU") {
+  if (req.user!.role === "WALI_KELAS") {
     return getHomeroomClassId(req.user!.userId, req.user!.teacherId);
   }
   return undefined;
@@ -76,7 +76,7 @@ export async function remove(req: Request, res: Response, next: NextFunction) {
     await prisma.activityLog.create({
       data: { userId: req.user!.userId, action: "DELETE", entity: "Student", entityId: req.params.id, ipAddress: req.ip },
     });
-    return ok(res, null, "Siswa berhasil dinonaktifkan");
+    return ok(res, null, "Siswa berhasil dihapus permanen");
   } catch (err) {
     next(err);
   }

@@ -182,6 +182,16 @@ export default function ScanPage({ scannerOnly = false }: Props) {
     }
   }
 
+  useEffect(() => {
+    if (!result && !resultError) return;
+
+    const timeoutId = window.setTimeout(() => {
+      void resumeScanning();
+    }, 2000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [result, resultError]);
+
   const showOverlay = isProcessing || result || resultError;
 
   return (

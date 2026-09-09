@@ -7,7 +7,8 @@ import {
 import * as violationService from "../services/violation.service";
 import { getHomeroomClassId, getTeacherIdByUserId } from "../services/homeroom.helper";
 import { created, fail, ok } from "../utils/apiResponse";
-import { prisma } from "../config/db";
+import { TeacherRepository } from "../services/repositories";
+import { createActivityLog } from "../services/activityLog.service";
 
 async function resolveScope(req: Request): Promise<violationService.ListViolationScope> {
   if (req.user!.role === "WALI_KELAS") {
@@ -56,7 +57,7 @@ async function resolveTeacherIdForCreate(req: Request): Promise<string | null> {
   if (!bodyTeacherId || typeof bodyTeacherId !== "string") {
     return null;
   }
-  const teacher = await prisma.teacher.findUnique({ where: { id: bodyTeacherId } });
+  const teacher = TeacherRepository.findUnique(bodyTeacherId);
   return teacher ? teacher.id : null;
 }
 
@@ -77,15 +78,13 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 
     const data = await violationService.createViolation(input, teacherId);
 
-    await prisma.activityLog.create({
-      data: {
+    await createActivityLog({
         userId: req.user!.userId,
         action: "CREATE_VIOLATION",
         entity: "Violation",
         entityId: data.id,
         ipAddress: req.ip,
         metadata: { studentId: input.studentId, points: data.points },
-      },
     });
 
     return created(res, data, "Laporan pelanggaran berhasil dibuat");
@@ -100,15 +99,13 @@ export async function update(req: Request, res: Response, next: NextFunction) {
     const scope = await resolveScope(req);
     const data = await violationService.updateViolation(req.params.id, input, scope);
 
-    await prisma.activityLog.create({
-      data: {
+    await createActivityLog({
         userId: req.user!.userId,
         action: "UPDATE",
         entity: "Violation",
         entityId: data.id,
         ipAddress: req.ip,
         metadata: { status: data.status },
-      },
     });
 
     return ok(res, data, "Data pelanggaran berhasil diperbarui");
@@ -120,9 +117,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
     await violationService.deleteViolation(req.params.id);
-    await prisma.activityLog.create({
-      data: { userId: req.user!.userId, action: "DELETE", entity: "Violation", entityId: req.params.id, ipAddress: req.ip },
-    });
+    await createActivityLog({ userId: req.user!.userId, action: "DELETE", entity: "Violation", entityId: req.params.id, ipAddress: req.ip });
     return ok(res, null, "Data pelanggaran berhasil dihapus");
   } catch (err) {
     next(err);

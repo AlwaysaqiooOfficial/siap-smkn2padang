@@ -1,4 +1,4 @@
-import { prisma } from "../config/db";
+import { findFirst, transaction } from "./jsonDatabase";
 import { logger } from "../utils/logger";
 import { triggerEmailProcessing } from "../utils/emailQueue";
 import { attendanceEmailTemplate } from "../templates/email/attendance.template";
@@ -22,19 +22,23 @@ interface QueueEmailParams {
  */
 async function queueEmail(params: QueueEmailParams): Promise<void> {
   try {
-    await prisma.emailLog.create({
-      data: {
+    await transaction(async (db) => {
+      db.create("email_queue", {
+        id: crypto.randomUUID(),
         toEmail: params.to,
         subject: params.subject,
         body: params.html,
         status: "PENDING",
+        createdAt: new Date().toISOString(),
+        sentAt: null,
+        errorMessage: null,
         relatedType: params.relatedType,
         relatedId: params.relatedId,
-      },
+      });
     });
     triggerEmailProcessing();
   } catch (err) {
-    logger.error("[email] Gagal membuat email_logs:", err);
+    logger.error("[email] Gagal membuat email_queue:", err);
   }
 }
 
@@ -44,17 +48,14 @@ interface ParentContact {
 }
 
 async function getParentContact(studentId: string): Promise<ParentContact | null> {
-  const student = await prisma.student.findUnique({
-    where: { id: studentId },
-    select: {
-      parent: { select: { fullName: true, user: { select: { email: true, isActive: true } } } },
-    },
-  });
+  const student = findFirst<any>("students", (item) => item.id === studentId);
+  if (!student) return null;
 
-  const parent = student?.parent;
-  if (!parent?.user?.email || !parent.user.isActive) return null;
-
-  return { email: parent.user.email, parentName: parent.fullName };
+  const parent = student.parent ?? (student.parentId ? findFirst<any>("parents", (item) => item.id === student.parentId) : null);
+  const parentUser = parent?.user ?? (parent?.userId ? findFirst<any>("users", (item) => item.id === parent.userId) : null);
+  const email = parent?.email ?? parentUser?.email ?? student.parentEmail;
+  if (!email || parent?.isActive === false || parentUser?.isActive === false) return null;
+  return { email, parentName: parent?.fullName ?? student.parentFullName ?? "Orang Tua" };
 }
 
 // ------------------------------------------------------------

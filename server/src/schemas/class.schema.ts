@@ -5,8 +5,8 @@ export const createClassSchema = z.object({
   grade: z.coerce.number().int().refine((v) => [10, 11, 12].includes(v), {
     message: "grade harus 10, 11, atau 12",
   }),
-  majorId: z.string().cuid(),
-  homeroomTeacherId: z.string().cuid().nullable().optional(),
+  majorId: z.string().trim().min(1),
+  homeroomTeacherId: z.string().trim().min(1).nullable().optional(),
 });
 
 export const updateClassSchema = createClassSchema.partial();

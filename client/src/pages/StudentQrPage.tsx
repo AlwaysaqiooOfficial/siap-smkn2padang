@@ -62,7 +62,7 @@ export default function StudentQrPage() {
   }
 
   async function handleDelete(student: StudentSummary) {
-    if (!window.confirm(`Nonaktifkan siswa ${student.fullName}?`)) return;
+    if (!window.confirm(`Hapus permanen siswa ${student.fullName} dari database ? Data absensi dan QR siswa ini juga tidak dapat dipulihkan.`)) return;
     try {
       await api.delete(`/students/${student.id}`);
       await fetchStudents(search);
@@ -180,7 +180,7 @@ export default function StudentQrPage() {
                       type="button"
                       onClick={() => void handleDelete(s)}
                       aria-label={`Hapus ${s.fullName}`}
-                      title="Nonaktifkan siswa"
+                      title="Hapus permanen siswa"
                       className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -230,6 +230,54 @@ export default function StudentQrPage() {
           )}
         </section>
       </main>
+
+      {qrData && !isLoadingQr && (
+        <section className="qr-print-sheet" aria-hidden="true">
+          <div className="qr-print-header">
+            <img src="/logo-sekolah.png" alt="" className="qr-print-logo" />
+            <div>
+              <p className="qr-print-kicker">KARTU IDENTITAS DIGITAL</p>
+              <h1>SMK NEGERI 2 PADANG</h1>
+              <p>Scan QR untuk mencatat kehadiran siswa</p>
+            </div>
+            <QrCode className="qr-print-mark" />
+          </div>
+
+          <div className="qr-print-body">
+            <div className="qr-print-card">
+              <div className="qr-print-card-top">
+                <span>QR ABSENSI SISWA</span>
+                <span>TAHUN AJARAN</span>
+              </div>
+              <div className="qr-print-code-wrap">
+                <img src={qrData.qrImage} alt={`QR Code ${qrData.fullName}`} className="qr-print-code" />
+              </div>
+              <p className="qr-print-name">{qrData.fullName}</p>
+              <p className="qr-print-token">{qrData.qrToken}</p>
+            </div>
+
+            <div className="qr-print-details">
+              <div>
+                <span>STATUS</span>
+                <strong>AKTIF</strong>
+              </div>
+              <div>
+                <span>PEMILIK QR</span>
+                <strong>{qrData.fullName}</strong>
+              </div>
+              <div>
+                <span>DIGUNAKAN UNTUK</span>
+                <strong>ABSENSI HARIAN</strong>
+              </div>
+            </div>
+          </div>
+
+          <footer className="qr-print-footer">
+            <span>SIAP SMKN 2 PADANG</span>
+            <span>Dokumen resmi sekolah · Simpan kartu ini dengan baik</span>
+          </footer>
+        </section>
+      )}
     </div>
   );
 }

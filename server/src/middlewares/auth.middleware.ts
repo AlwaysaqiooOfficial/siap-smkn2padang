@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { verifyToken, type JwtPayload } from "../utils/jwt";
 import { fail } from "../utils/apiResponse";
-import { prisma } from "../config/db";
+import { UserRepository } from "../services/repositories";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -23,7 +23,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
     const payload = verifyToken(token);
 
     // Pastikan user masih aktif di database (tidak dinonaktifkan admin setelah token terbit).
-    const user = await prisma.user.findUnique({ where: { id: payload.userId } });
+    const user = UserRepository.findUnique(payload.userId);
     if (!user || !user.isActive) {
       return fail(res, "Akun tidak aktif atau tidak ditemukan", 401);
     }

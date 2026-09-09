@@ -1,40 +1,27 @@
-import { Prisma } from "@prisma/client";
-import { prisma } from "../config/db";
 import { AppError } from "../middlewares/error.middleware";
-import {
-  getAttendanceRules,
-  timeStringToMinutes,
-  nowMinutesOfDay,
-  serverDateOnly,
-} from "../utils/schoolSettings";
+import { getAttendanceRules, timeStringToMinutes, nowMinutesOfDay, serverDateOnly } from "../utils/schoolSettings";
 import { sendAttendanceEmail } from "./email.service";
 import { determineAttendanceStatus } from "../utils/attendanceStatus";
 import type { ListAttendanceInput } from "../schemas/attendance.schema";
-
-const studentSelect = {
-  id: true,
-  nis: true,
-  nisn: true,
-  fullName: true,
-  isActive: true,
-  class: { select: { id: true, name: true, grade: true } },
-  major: { select: { id: true, code: true, name: true } },
-};
+import { AttendanceRepository, ClassRepository, MajorRepository, SemesterRepository, StudentRepository } from "./repositories";
 
 export interface ScanResult {
   duplicate: boolean;
-  student: {
-    id: string;
-    nis: string;
-    nisn: string;
-    fullName: string;
-    class: { id: string; name: string; grade: number };
-    major: { id: string; code: string; name: string };
-  };
+  student: any;
   status: string;
   punctuality: "CEPAT" | "TEPAT_WAKTU" | "TERLAMBAT" | null;
   checkInTime: Date | null;
   message: string;
+}
+
+function getStudentView(student: any) {
+  const schoolClass = ClassRepository.findUnique(student.classId);
+  const major = MajorRepository.findUnique(student.majorId);
+  return {
+    ...student,
+    class: schoolClass ? { id: schoolClass.id, name: schoolClass.name, grade: schoolClass.grade } : null,
+    major: major ? { id: major.id, code: major.code, name: major.name } : null,
+  };
 }
 
 function getPunctuality(checkInTime: Date | null, startTime: string, lateAfter: string) {
@@ -45,198 +32,93 @@ function getPunctuality(checkInTime: Date | null, startTime: string, lateAfter: 
   return "TERLAMBAT" as const;
 }
 
-/**
- * Alur scan QR (SEMUA berdasarkan waktu SERVER, bukan waktu dari browser/klien):
- * 1. baca token -> 2. validasi token -> 3. cari siswa -> 4. cek aktif -> 5. ambil kelas
- * 6. ambil tahun ajaran & semester aktif -> 7-8. tanggal & waktu server
- * 9. cek sudah absen hari ini -> 10. tentukan status -> 11-12. simpan attendance + log
- */
-export async function scanAttendance(
-  token: string,
-  scannedByUserId: string,
-  ipAddress?: string
-): Promise<ScanResult> {
-  // 1-2. Validasi token & cari siswa
-  const student = await prisma.student.findUnique({
-    where: { qrToken: token },
-    select: studentSelect,
-  });
+export async function scanAttendance(token: string, _scannedByUserId: string, _ipAddress?: string): Promise<ScanResult> {
+  const rawStudent = StudentRepository.findFirst((item) => item.qrToken === token);
+  if (!rawStudent) throw new AppError("QR Code tidak dikenali / tidak valid", 404);
+  if (!rawStudent.isActive) throw new AppError(`Siswa ${rawStudent.fullName} berstatus tidak aktif`, 403);
 
-  if (!student) {
-    throw new AppError("QR Code tidak dikenali / tidak valid", 404);
-  }
+  const semester = SemesterRepository.findFirst((item) => item.isActive);
+  if (!semester) throw new AppError("Tidak ada semester aktif. Hubungi admin untuk mengatur semester.", 500);
 
-  // 4. Cek siswa aktif
-  if (!student.isActive) {
-    throw new AppError(`Siswa ${student.fullName} berstatus tidak aktif`, 403);
-  }
-
-  // 6. Ambil semester aktif
-  const activeSemester = await prisma.semester.findFirst({
-    where: { isActive: true },
-    include: { academicYear: true },
-  });
-  if (!activeSemester) {
-    throw new AppError("Tidak ada semester aktif. Hubungi admin untuk mengatur semester.", 500);
-  }
-
-  // 7-8. Waktu SERVER (bukan dari request/browser)
   const serverNow = new Date();
   const today = serverDateOnly(serverNow);
   const rules = await getAttendanceRules();
   const currentMinutes = nowMinutesOfDay(serverNow);
-  const startMinutes = timeStringToMinutes(rules.startTime);
-  const endMinutes = timeStringToMinutes(rules.endTime);
-
-  if (currentMinutes < startMinutes) {
+  if (currentMinutes < timeStringToMinutes(rules.startTime)) {
     throw new AppError(`Scan absensi baru tersedia mulai pukul ${rules.startTime}`, 403);
   }
-
-  if (currentMinutes >= endMinutes) {
-    throw new AppError(
-      `Waktu scan sudah berakhir pukul ${rules.endTime}. Siswa tercatat ALFA jika belum absen.`,
-      403
-    );
+  if (currentMinutes >= timeStringToMinutes(rules.endTime)) {
+    throw new AppError(`Waktu scan sudah berakhir pukul ${rules.endTime}.`, 403);
   }
 
-  // 9. Cek duplicate scan
-  const existing = await prisma.attendance.findUnique({
-    where: {
-      studentId_date_semesterId: {
-        studentId: student.id,
-        date: today,
-        semesterId: activeSemester.id,
-      },
-    },
-  });
+  const student = getStudentView(rawStudent);
+  const existing = AttendanceRepository.findFirst(
+    (item) => item.studentId === student.id && item.date === today.toISOString() && item.semesterId === semester.id
+  );
 
   if (existing) {
+    const existingTime = existing.checkInTime ? new Date(existing.checkInTime) : null;
     if (existing.status === "ALFA") {
-      const lateAfterMinutes = timeStringToMinutes(rules.lateAfter);
-      const status = determineAttendanceStatus(currentMinutes, lateAfterMinutes);
-      const updated = await prisma.$transaction(async (tx) => {
-        const attendance = await tx.attendance.update({
-          where: { id: existing.id },
-          data: { status, checkInTime: serverNow },
-        });
-
-        await tx.attendanceLog.create({
-          data: {
-            attendanceId: attendance.id,
-            action: "SCAN",
-            performedBy: scannedByUserId,
-            ipAddress,
-            note: `Status ALFA diperbarui melalui scan QR: ${status}`,
-          },
-        });
-
-        return attendance;
-      });
-
+      const status = determineAttendanceStatus(currentMinutes, timeStringToMinutes(rules.lateAfter));
+      const updated = await AttendanceRepository.update(existing.id, { status, checkInTime: serverNow.toISOString() });
       void sendAttendanceEmail({
         studentId: student.id,
         studentName: student.fullName,
-        className: student.class.name,
-        majorName: student.major.name,
-        status,
-        checkInTime: updated.checkInTime!,
+        className: student.class?.name ?? "-",
+        majorName: student.major?.name ?? "-",
+        status: status as "HADIR" | "TERLAMBAT",
+        checkInTime: serverNow,
         attendanceId: updated.id,
       });
-
       return {
         duplicate: false,
         student,
         status: updated.status,
-        punctuality: getPunctuality(updated.checkInTime, rules.startTime, rules.lateAfter),
-        checkInTime: updated.checkInTime,
-        message:
-          status === "HADIR"
-            ? "Absensi berhasil dicatat: HADIR (menggantikan ALFA)"
-            : "Absensi berhasil dicatat: TERLAMBAT (menggantikan ALFA)",
+        punctuality: getPunctuality(serverNow, rules.startTime, rules.lateAfter),
+        checkInTime: serverNow,
+        message: status === "HADIR" ? "Absensi berhasil dicatat: HADIR (menggantikan ALFA)" : "Absensi berhasil dicatat: TERLAMBAT (menggantikan ALFA)",
       };
     }
-
     return {
       duplicate: true,
       student,
       status: existing.status,
-      punctuality: getPunctuality(existing.checkInTime, rules.startTime, rules.lateAfter),
-      checkInTime: existing.checkInTime,
-      message: "Absensi hari ini sudah tercatat.",
+      punctuality: getPunctuality(existingTime, rules.startTime, rules.lateAfter),
+      checkInTime: existingTime,
+      message: existingTime
+        ? `Siswa sudah di-scan pada ${existingTime.toLocaleDateString("id-ID", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })} pukul ${existingTime.toLocaleTimeString("id-ID", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })}.`
+        : "Siswa sudah di-scan hari ini.",
     };
   }
 
-  // 10. Tentukan status berdasarkan school_settings
-  const lateAfterMinutes = timeStringToMinutes(rules.lateAfter);
-  const status = determineAttendanceStatus(currentMinutes, lateAfterMinutes);
-
-  // 11-12. Simpan attendance + attendance_logs tanpa melempar error saat scan bersamaan.
-  const attendance = await prisma.$transaction(async (tx) => {
-    const inserted = await tx.attendance.createMany({
-      data: {
-        studentId: student.id,
-        semesterId: activeSemester.id,
-        date: today,
-        checkInTime: serverNow,
-        status,
-      },
-      skipDuplicates: true,
-    });
-
-    if (inserted.count === 0) return null;
-
-    const created = await tx.attendance.findUniqueOrThrow({
-      where: {
-        studentId_date_semesterId: {
-          studentId: student.id,
-          date: today,
-          semesterId: activeSemester.id,
-        },
-      },
-    });
-
-    await tx.attendanceLog.create({
-      data: {
-        attendanceId: created.id,
-        action: "SCAN",
-        performedBy: scannedByUserId,
-        ipAddress,
-        note: `Scan QR oleh guru, status otomatis: ${status}`,
-      },
-    });
-
-    return created;
+  const status = determineAttendanceStatus(currentMinutes, timeStringToMinutes(rules.lateAfter));
+  const attendance = await AttendanceRepository.create({
+    id: crypto.randomUUID(),
+    studentId: student.id,
+    semesterId: semester.id,
+    date: today.toISOString(),
+    checkInTime: serverNow.toISOString(),
+    status,
+    createdAt: serverNow.toISOString(),
+    updatedAt: serverNow.toISOString(),
   });
 
-  if (!attendance) {
-    const duplicate = await prisma.attendance.findUnique({
-      where: {
-        studentId_date_semesterId: {
-          studentId: student.id,
-          date: today,
-          semesterId: activeSemester.id,
-        },
-      },
-    });
-
-    return {
-      duplicate: true,
-      student,
-      status: duplicate?.status ?? status,
-      punctuality: getPunctuality(duplicate?.checkInTime ?? null, rules.startTime, rules.lateAfter),
-      checkInTime: duplicate?.checkInTime ?? null,
-      message: "Absensi hari ini sudah tercatat.",
-    };
-  }
-
-  // Email dikirim setelah transaksi commit agar kegagalan email tidak membatalkan absensi.
   void sendAttendanceEmail({
     studentId: student.id,
     studentName: student.fullName,
-    className: student.class.name,
-    majorName: student.major.name,
+    className: student.class?.name ?? "-",
+    majorName: student.major?.name ?? "-",
     status: status as "HADIR" | "TERLAMBAT",
-    checkInTime: attendance.checkInTime!,
+    checkInTime: serverNow,
     attendanceId: attendance.id,
   });
 
@@ -244,46 +126,33 @@ export async function scanAttendance(
     duplicate: false,
     student,
     status: attendance.status,
-    punctuality: getPunctuality(attendance.checkInTime, rules.startTime, rules.lateAfter),
-    checkInTime: attendance.checkInTime,
-    message:
-      status === "HADIR" ? "Absensi berhasil dicatat: HADIR" : "Absensi berhasil dicatat: TERLAMBAT",
+    punctuality: getPunctuality(serverNow, rules.startTime, rules.lateAfter),
+    checkInTime: serverNow,
+    message: status === "HADIR" ? "Absensi berhasil dicatat: HADIR" : "Absensi berhasil dicatat: TERLAMBAT",
   };
 }
 
 export async function listAttendance(filter: ListAttendanceInput, scopedClassId?: string) {
   const date = filter.date ? serverDateOnly(filter.date) : serverDateOnly(new Date());
-
-  const where: Prisma.AttendanceWhereInput = {
-    date,
-    status: filter.status,
-    student: {
-      classId: scopedClassId ?? filter.classId,
-    },
-  };
-
-  const [data, total] = await Promise.all([
-    prisma.attendance.findMany({
-      where,
-      include: {
-        student: { select: studentSelect },
-        semester: { select: { id: true, name: true } },
-      },
-      orderBy: { checkInTime: "desc" },
-      skip: (filter.page - 1) * filter.limit,
-      take: filter.limit,
-    }),
-    prisma.attendance.count({ where }),
-  ]);
-
-  return {
-    data,
-    meta: {
-      page: filter.page,
-      limit: filter.limit,
-      total,
-      totalPages: Math.ceil(total / filter.limit) || 1,
-      date,
-    },
-  };
+  const dateKey = date.toISOString();
+  let records = AttendanceRepository.findFilter((item) => item.date === dateKey);
+  if (filter.status) records = records.filter((item) => item.status === filter.status);
+  records = records.filter((item) => {
+    const student = StudentRepository.findUnique(item.studentId);
+    const classId = scopedClassId ?? filter.classId;
+    return !!student && (!classId || student.classId === classId);
+  });
+  records.sort((a, b) => String(b.checkInTime ?? "").localeCompare(String(a.checkInTime ?? "")));
+  const total = records.length;
+  const start = (filter.page - 1) * filter.limit;
+  const data = records.slice(start, start + filter.limit).map((item) => {
+    const student = StudentRepository.findUnique(item.studentId)!;
+    return {
+      ...item,
+      checkInTime: item.checkInTime ? new Date(item.checkInTime) : null,
+      student: getStudentView(student),
+      semester: SemesterRepository.findUnique(item.semesterId),
+    };
+  });
+  return { data, meta: { page: filter.page, limit: filter.limit, total, totalPages: Math.ceil(total / filter.limit) || 1, date } };
 }

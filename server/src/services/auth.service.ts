@@ -17,6 +17,10 @@ export async function loginService(input: LoginInput, ipAddress?: string) {
     throw new AppError("Hanya akun admin dan guru yang dapat masuk ke sistem", 403);
   }
 
+  if (!user.passwordHash) {
+    throw new AppError("Akun di users.json belum memiliki password hash yang valid", 500);
+  }
+
   const isValidPassword = await comparePassword(input.password, user.passwordHash);
   if (!isValidPassword) {
     throw new AppError("Email/username atau password salah", 401);

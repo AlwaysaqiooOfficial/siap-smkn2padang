@@ -11,7 +11,7 @@ interface Transaction {
 let txQueue = Promise.resolve();
 const collections = new Map<string, JsonCollection>();
 let lastSync = 0;
-const SYNC_INTERVAL = 5000; // Sync ke GitHub setiap 5 detik
+let syncQueue = Promise.resolve();
 
 /**
  * Load semua file koleksi dari GitHub ke memory cache
@@ -21,6 +21,7 @@ export async function loadCollections() {
   
   const files = [
     "users.json",
+    "parents.json",
     "teachers.json",
     "classes.json",
     "majors.json",
@@ -28,21 +29,30 @@ export async function loadCollections() {
     "semesters.json",
     "school_settings.json",
     "violation_categories.json",
+    "attendance.json",
+    "permissions.json",
+    "violations.json",
+    "notifications.json",
+    "email_queue.json",
   ];
 
   for (const file of files) {
     const collectionName = file.replace(".json", "");
-    const data = await githubJsonStore.read<JsonRecord[]>(file, []);
+    const required = ["users.json", "teachers.json", "classes.json", "majors.json"].includes(file);
+    const data = await githubJsonStore.read<JsonRecord[]>(file, [], required);
     
     // Index array ke map berdasarkan ID
     const indexed: JsonCollection = {};
-    for (const record of data) {
+    for (const rawRecord of data) {
+      const record = normalizeRecord(collectionName, rawRecord);
       if (record && record.id && typeof record.id === "string") {
         indexed[record.id] = record;
       }
     }
     collections.set(collectionName, indexed);
   }
+
+  ensureActiveSemester();
 
   // Load students dari semua file kelas
   const classesCollection = collections.get("classes") || {};
@@ -51,7 +61,8 @@ export async function loadCollections() {
   
   for (const classId of classIds) {
     const students = await githubJsonStore.read<JsonRecord[]>(`students/${classId}.json`, []);
-    for (const student of students) {
+    for (const rawStudent of students) {
+      const student = normalizeRecord("students", rawStudent);
       if (student && student.id && typeof student.id === "string") {
         studentsCollection[student.id] = student;
       }
@@ -61,6 +72,71 @@ export async function loadCollections() {
 
   lastSync = Date.now();
   console.log("✅ Collections loaded");
+}
+
+function normalizeRecord(collection: string, rawRecord: JsonRecord): JsonRecord {
+  const record: JsonRecord = { ...rawRecord };
+
+  if (collection === "users") {
+    record.id = String(record.id ?? record.userId ?? record.username ?? record.email);
+    record.passwordHash = record.passwordHash ?? record.password_hash ?? record.password;
+    record.role = normalizeRole(record.role ?? record.userRole ?? record.type);
+    record.isActive = record.isActive ?? record.active ?? true;
+    record.username = record.username ?? record.user_name ?? record.email;
+  }
+
+  if (collection === "teachers") {
+    record.id = String(record.id ?? record.teacherId ?? record.nip);
+    record.userId = record.userId ?? record.user_id ?? record.user?.id ?? null;
+    record.fullName = record.fullName ?? record.full_name ?? record.name ?? "";
+    record.isHomeroom = record.isHomeroom ?? record.is_homeroom ?? false;
+  }
+
+  if (collection === "semesters") {
+    record.isActive = record.isActive ?? record.active ?? record.is_active ?? false;
+  }
+
+  return record;
+}
+
+function ensureActiveSemester() {
+  const semesters = collections.get("semesters") || {};
+  if (Object.values(semesters).some((semester: any) => semester.isActive === true)) return;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const isFirstSemester = now.getMonth() >= 6;
+  const academicStartYear = isFirstSemester ? year : year - 1;
+  const name = isFirstSemester ? "Ganjil" : "Genap";
+  const startDate = isFirstSemester
+    ? `${academicStartYear}-07-01`
+    : `${academicStartYear + 1}-01-01`;
+  const endDate = isFirstSemester
+    ? `${academicStartYear}-12-31`
+    : `${academicStartYear + 1}-06-30`;
+  const id = `semester-default-${academicStartYear}-${name.toLowerCase()}`;
+
+  semesters[id] = {
+    id,
+    academicYearId: `academic-year-default-${academicStartYear}`,
+    name,
+    order: isFirstSemester ? 1 : 2,
+    startDate,
+    endDate,
+    isActive: true,
+    createdAt: now.toISOString(),
+    updatedAt: now.toISOString(),
+  };
+  collections.set("semesters", semesters);
+  console.warn(`⚠️ Tidak ada semester aktif; memakai fallback ${name} ${academicStartYear}/${academicStartYear + 1}.`);
+}
+
+function normalizeRole(value: unknown): string {
+  const role = String(value ?? "").trim().toUpperCase();
+  if (role === "ADMIN" || role === "ADMINISTRATOR" || role === "SUPERADMIN") return "SUPER_ADMIN";
+  if (role === "WALI KELAS" || role === "WALIKELAS") return "WALI_KELAS";
+  if (role === "ORANG TUA" || role === "ORANGTUA" || role === "PARENT") return "ORANG_TUA";
+  return role || "GURU";
 }
 
 /**
@@ -231,6 +307,15 @@ export class Database {
   }
 
   async commit(): Promise<void> {
+    const changedStudentClassIds = new Set<string>();
+    const studentChanges = this.changes.get("students");
+    if (studentChanges) {
+      for (const [id, record] of studentChanges) {
+        const current = record ?? findOne<JsonRecord>("students", id);
+        if (current?.classId) changedStudentClassIds.add(String(current.classId));
+      }
+    }
+
     // Sync perubahan ke memory cache dan GitHub
     for (const [collectionName, changeMap] of this.changes) {
       const collection = collections.get(collectionName) || {};
@@ -245,26 +330,28 @@ export class Database {
       collections.set(collectionName, collection);
     }
 
-    // Push ke GitHub
-    await syncToGitHub();
+    // Return after the in-memory commit; GitHub sync continues in the background so a
+    // slow GitHub request cannot make an already-saved API operation look like a failure.
+    const changedCollections = [...this.changes.keys()];
+    const syncOperation = syncQueue.then(() => syncToGitHub(changedCollections, [...changedStudentClassIds]));
+    syncQueue = syncOperation.catch((error) => {
+      console.error("❌ GitHub sync gagal:", error);
+    });
   }
 }
 
 /**
  * Sync semua koleksi ke GitHub
  */
-async function syncToGitHub(): Promise<void> {
-  const now = Date.now();
-  if (now - lastSync < SYNC_INTERVAL) {
-    return; // Debounce: jangan sync terlalu sering
-  }
-  lastSync = now;
+async function syncToGitHub(changedCollections: string[], changedStudentClassIds: string[]): Promise<void> {
+  lastSync = Date.now();
 
   const message = `chore: auto-sync database changes at ${new Date().toISOString()}`;
 
   // Sync master data
   const filesToSync = [
     { name: "users", file: "users.json" },
+    { name: "parents", file: "parents.json" },
     { name: "teachers", file: "teachers.json" },
     { name: "classes", file: "classes.json" },
     { name: "majors", file: "majors.json" },
@@ -272,9 +359,15 @@ async function syncToGitHub(): Promise<void> {
     { name: "semesters", file: "semesters.json" },
     { name: "school_settings", file: "school_settings.json" },
     { name: "violation_categories", file: "violation_categories.json" },
+    { name: "attendance", file: "attendance.json" },
+    { name: "permissions", file: "permissions.json" },
+    { name: "violations", file: "violations.json" },
+    { name: "notifications", file: "notifications.json" },
+    { name: "email_queue", file: "email_queue.json" },
   ];
 
   for (const { name, file } of filesToSync) {
+    if (!changedCollections.includes(name)) continue;
     const collection = collections.get(name);
     if (collection) {
       const data = Object.values(collection);
@@ -282,14 +375,17 @@ async function syncToGitHub(): Promise<void> {
     }
   }
 
-  // Sync students per kelas
+  // Sync students per kelas only when student/class data changed.
+  if (!changedCollections.includes("students") && !changedCollections.includes("classes")) return;
   const students = collections.get("students") || {};
   const classesColl = collections.get("classes") || {};
   
-  for (const classId of Object.keys(classesColl)) {
+  const classIds = changedStudentClassIds.length > 0 ? changedStudentClassIds : Object.keys(classesColl);
+  for (const classId of classIds) {
     const classStudents = Object.values(students).filter(
       (s: any) => s.classId === classId
     );
     await githubJsonStore.write(`students/${classId}.json`, classStudents, message);
   }
 }
+

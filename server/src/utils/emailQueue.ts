@@ -1,32 +1,24 @@
-import { prisma } from "../config/db";
 import { env } from "../config/env";
 import { getFromAddress, getTransporter, isSmtpConfigured } from "../config/mailer";
 import { logger } from "./logger";
+import { findAll, findOne, transaction } from "../services/jsonDatabase";
 
 const SAFETY_NET_INTERVAL_MS = 15 * 1000; // jaring pengaman: cek ulang tiap 15 detik
 const BATCH_SIZE = 20;
 
 let isProcessing = false;
 
-// Check if Prisma is available (DATABASE_URL exists)
-const isPrismaAvailable = () => {
-  return !!env.DATABASE_URL && env.DATABASE_URL.length > 0;
-};
-
 async function sendOne(emailLogId: string) {
-  if (!isPrismaAvailable()) return; // Skip if no database
-
   try {
-    const log = await prisma.emailLog.findUnique({ where: { id: emailLogId } });
+    const log = findOne<any>("email_queue", emailLogId);
     if (!log || log.status !== "PENDING") return; // sudah diproses job lain / tidak ditemukan
 
     if (!isSmtpConfigured()) {
-      await prisma.emailLog.update({
-        where: { id: log.id },
-        data: {
+      await transaction(async (db) => {
+        db.update("email_queue", log.id, {
           status: "FAILED",
           errorMessage: "SMTP belum dikonfigurasi (isi SMTP_HOST/SMTP_USER/SMTP_PASS di .env)",
-        },
+        });
       });
       return;
     }
@@ -39,23 +31,16 @@ async function sendOne(emailLogId: string) {
       html: log.body,
     });
 
-    await prisma.emailLog.update({
-      where: { id: log.id },
-      data: { status: "SENT", sentAt: new Date(), errorMessage: null },
+    await transaction(async (db) => {
+      db.update("email_queue", log.id, { status: "SENT", sentAt: new Date().toISOString(), errorMessage: null });
     });
 
     // Jika email berhasil terkirim dan terkait attendance, tandai emailSent = true
     if (log.relatedType === "ATTENDANCE" && log.relatedId) {
-      const attendance = await prisma.attendance.findUnique({
-        where: { id: log.relatedId },
-        select: { studentId: true },
-      });
+      const attendance = findOne<any>("attendance", log.relatedId);
       if (attendance) {
-        await prisma.student.update({
-          where: { id: attendance.studentId },
-          data: { emailSent: true },
-        }).catch((err) => {
-          logger.error(`[email] Gagal update emailSent untuk student:`, err);
+        await transaction(async (db) => {
+          db.update("students", attendance.studentId, { emailSent: true });
         });
       }
     }
@@ -69,38 +54,20 @@ async function sendOne(emailLogId: string) {
 /** Memproses semua email_logs berstatus PENDING (dipanggil setelah enqueue & oleh safety-net interval). */
 async function processPendingBatch() {
   if (isProcessing) return;
-  if (!isPrismaAvailable()) return; // Skip if no database
-  
   isProcessing = true;
   try {
-    try {
-      // Hanya proses email yang dibuat HARI INI — pastikan system restart tidak mengirim ulang email lama
-      const now = new Date();
-      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const pending = await prisma.emailLog.findMany({
-        where: {
-          status: "PENDING",
-          createdAt: { gte: startOfToday },
-        },
-        orderBy: { createdAt: "asc" },
-        take: BATCH_SIZE,
-        select: { id: true },
-      });
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    const pending = findAll<any>("email_queue")
+      .filter((item) => item.status === "PENDING" && new Date(item.createdAt) >= startOfToday)
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+      .slice(0, BATCH_SIZE);
 
-      for (const item of pending) {
-        // eslint-disable-next-line no-await-in-loop
-        await sendOne(item.id);
-      }
-    } catch (err) {
-      // Gracefully skip jika Prisma tidak tersedia
-      if (err instanceof Error && err.message.includes("Can't reach database server")) {
-        logger.info("[email] Database not available, skipping email batch");
-        return;
-      }
-      throw err;
+    for (const item of pending) {
+      await sendOne(item.id);
     }
   } catch (err) {
-    logger.error("[email] Gagal memproses batch email_logs:", err);
+    logger.error("[email] Gagal memproses batch email_queue:", err);
   } finally {
     isProcessing = false;
   }

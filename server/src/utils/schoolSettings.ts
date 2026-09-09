@@ -1,5 +1,5 @@
-import { prisma } from "../config/db";
 import { env } from "../config/env";
+import { SchoolSettingRepository } from "../services/repositories";
 
 // Fungsi tanggal/waktu murni dipindah ke dateTime.ts (tanpa dependensi Prisma) — di-re-export
 // di sini agar seluruh kode lain yang sudah `import { serverDateOnly } from "./schoolSettings"`
@@ -17,24 +17,19 @@ export interface AttendanceRules {
  * Jika belum diset, fallback ke .env.
  */
 export async function getAttendanceRules(): Promise<AttendanceRules> {
-  const [startSetting, lateSetting, endSetting] = await Promise.all([
-    prisma.schoolSetting.findUnique({ where: { key: "attendance_start_time" } }),
-    prisma.schoolSetting.findUnique({ where: { key: "attendance_late_after" } }),
-    prisma.schoolSetting.findUnique({ where: { key: "attendance_end_time" } }),
-  ]);
+  const getSetting = (key: string) => SchoolSettingRepository.findFirst((setting) => setting.key === key || setting.id === key)?.value;
 
   return {
-    startTime: startSetting?.value ?? env.ATTENDANCE_START_TIME,
-    lateAfter: lateSetting?.value ?? env.ATTENDANCE_LATE_AFTER,
-    endTime: endSetting?.value ?? env.ATTENDANCE_END_TIME,
+    startTime: getSetting("attendance_start_time") ?? env.ATTENDANCE_START_TIME,
+    lateAfter: getSetting("attendance_late_after") ?? env.ATTENDANCE_LATE_AFTER,
+    endTime: getSetting("attendance_end_time") ?? env.ATTENDANCE_END_TIME,
   };
 }
 
 /** Jam pemicu job auto-alfa ("HH:mm"), diambil dari school_settings — TIDAK hard-coded. */
 export async function getAutoAlfaCronTime(): Promise<string> {
   try {
-    const setting = await prisma.schoolSetting.findUnique({ where: { key: "auto_alfa_cron_time" } });
-    return setting?.value ?? env.AUTO_ALFA_CRON_TIME;
+    return SchoolSettingRepository.findFirst((setting) => setting.key === "auto_alfa_cron_time" || setting.id === "auto_alfa_cron_time")?.value ?? env.AUTO_ALFA_CRON_TIME;
   } catch (err) {
     // Fallback jika Prisma tidak tersedia (DATABASE_URL tidak ada)
     return env.AUTO_ALFA_CRON_TIME;
@@ -47,9 +42,7 @@ export async function getAutoAlfaCronTime(): Promise<string> {
  */
 export async function getViolationNotifyThreshold(): Promise<number> {
   try {
-    const setting = await prisma.schoolSetting.findUnique({
-      where: { key: "violation_notify_min_points" },
-    });
+    const setting = SchoolSettingRepository.findFirst((item) => item.key === "violation_notify_min_points" || item.id === "violation_notify_min_points");
     const parsed = Number(setting?.value);
     return Number.isFinite(parsed) ? parsed : 10;
   } catch (err) {

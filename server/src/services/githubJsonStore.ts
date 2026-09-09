@@ -38,13 +38,16 @@ export class GitHubJsonStore {
     return `${env.GITHUB_DATA_DIR}/${fileName}`;
   }
 
-  async read<T extends JsonValue>(fileName: string, fallback: T): Promise<T> {
+  async read<T extends JsonValue>(fileName: string, fallback: T, required = false): Promise<T> {
     const response = await fetch(
       `${this.apiBase}/repos/${this.repositoryPath}/contents/${this.filePath(fileName)}?ref=${encodeURIComponent(env.GITHUB_BRANCH)}`,
       { headers: this.getHeaders() }
     );
 
     if (response.status === 404) {
+      if (required) {
+        throw new Error(`GitHub tidak dapat mengakses ${fileName}. Periksa GITHUB_TOKEN, owner, repo, dan branch.`);
+      }
       return fallback;
     }
 

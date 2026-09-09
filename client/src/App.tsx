@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import StudentQrPage from "./pages/StudentQrPage";
 import AddStudentPage from "./pages/AddStudentPage";
 import TeacherManagementPage from "./pages/TeacherManagementPage";
+import AddClassPage from "./pages/AddClassPage";
 import AttendanceReportPage from "./pages/AttendanceReportPage";
 import WaliKelasDashboardPage from "./pages/WaliKelasDashboardPage";
 import GuruDashboardPage from "./pages/GuruDashboardPage";
@@ -79,6 +80,7 @@ export default function App() {
 
             <Route element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]} />}>
               <Route path="/dashboard/admin" element={<AdminDashboardPage />} />
+              <Route path="/management/classes" element={<AddClassPage />} />
               <Route path="/management/teachers" element={<TeacherManagementPage />} />
             </Route>
 

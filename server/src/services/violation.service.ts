@@ -1,161 +1,86 @@
-import { prisma } from "../config/db";
 import { AppError } from "../middlewares/error.middleware";
 import { serverDateOnly, getViolationNotifyThreshold } from "../utils/schoolSettings";
 import { sendViolationEmail } from "./email.service";
-import type {
-  CreateViolationInput,
-  ListViolationInput,
-  UpdateViolationInput,
-} from "../schemas/violation.schema";
+import type { CreateViolationInput, ListViolationInput, UpdateViolationInput } from "../schemas/violation.schema";
+import { ClassRepository, MajorRepository, StudentRepository, TeacherRepository, ViolationCategoryRepository, ViolationRepository } from "./repositories";
 
-const includeDefault = {
-  student: {
-    select: {
-      id: true,
-      fullName: true,
-      nis: true,
-      classId: true,
-      class: { select: { id: true, name: true } },
-      major: { select: { code: true, name: true } },
-    },
-  },
-  teacher: { select: { id: true, fullName: true } },
-  category: { select: { id: true, name: true, points: true } },
-};
+export interface ListViolationScope { classId?: string; teacherId?: string; }
 
-export interface ListViolationScope {
-  classId?: string; // paksa scope WALI_KELAS
-  teacherId?: string; // paksa scope GURU (hanya laporan miliknya sendiri)
-}
-
-export async function listViolations(filter: ListViolationInput, scope: ListViolationScope) {
-  if (scope.classId && filter.classId && filter.classId !== scope.classId) {
-    throw new AppError("Anda tidak memiliki akses ke kelas di luar kelas Anda", 403);
-  }
-
-  const where = {
-    studentId: filter.studentId,
-    categoryId: filter.categoryId,
-    status: filter.status,
-    teacherId: scope.teacherId,
-    student: {
-      classId: scope.classId ?? filter.classId,
-    },
-  };
-
-  const [data, total] = await Promise.all([
-    prisma.violation.findMany({
-      where,
-      include: includeDefault,
-      orderBy: { date: "desc" },
-      skip: (filter.page - 1) * filter.limit,
-      take: filter.limit,
-    }),
-    prisma.violation.count({ where }),
-  ]);
-
+function view(item: any) {
+  const student = StudentRepository.findUnique(item.studentId);
+  const category = ViolationCategoryRepository.findUnique(item.categoryId ?? item.violationCategoryId);
+  const schoolClass = student ? ClassRepository.findUnique(student.classId) : undefined;
+  const major = student ? MajorRepository.findUnique(student.majorId) : undefined;
+  const teacher = item.teacherId ? TeacherRepository.findUnique(item.teacherId) : undefined;
   return {
-    data,
-    meta: {
-      page: filter.page,
-      limit: filter.limit,
-      total,
-      totalPages: Math.ceil(total / filter.limit) || 1,
-    },
+    ...item,
+    points: item.points ?? item.point,
+    date: new Date(item.date),
+    student: student ? { ...student, class: schoolClass ? { id: schoolClass.id, name: schoolClass.name } : null, major: major ? { code: major.code, name: major.name } : null } : null,
+    teacher: teacher ? { id: teacher.id, fullName: teacher.fullName } : null,
+    category,
   };
 }
 
-export async function getViolationById(id: string) {
-  const violation = await prisma.violation.findUnique({ where: { id }, include: includeDefault });
-  if (!violation) throw new AppError("Data pelanggaran tidak ditemukan", 404);
-  return violation;
+export function listViolations(filter: ListViolationInput, scope: ListViolationScope) {
+  if (scope.classId && filter.classId && filter.classId !== scope.classId) throw new AppError("Anda tidak memiliki akses ke kelas di luar kelas Anda", 403);
+  let records = ViolationRepository.findMany();
+  if (filter.studentId) records = records.filter((item) => item.studentId === filter.studentId);
+  if (filter.categoryId) records = records.filter((item) => (item.categoryId ?? item.violationCategoryId) === filter.categoryId);
+  if (filter.status) records = records.filter((item) => item.status === filter.status);
+  if (scope.teacherId) records = records.filter((item) => item.teacherId === scope.teacherId);
+  const classId = scope.classId ?? filter.classId;
+  if (classId) records = records.filter((item) => StudentRepository.findUnique(item.studentId)?.classId === classId);
+  records.sort((a, b) => b.date.localeCompare(a.date));
+  const total = records.length;
+  const start = (filter.page - 1) * filter.limit;
+  return { data: records.slice(start, start + filter.limit).map(view), meta: { page: filter.page, limit: filter.limit, total, totalPages: Math.ceil(total / filter.limit) || 1 } };
 }
 
-function assertAccess(
-  violation: { student: { classId: string }; teacherId: string },
-  scope: ListViolationScope
-) {
-  if (scope.classId && violation.student.classId !== scope.classId) {
-    throw new AppError("Anda tidak memiliki akses ke pelanggaran ini", 403);
-  }
-  if (scope.teacherId && violation.teacherId !== scope.teacherId) {
-    throw new AppError("Anda hanya dapat mengakses laporan yang Anda buat sendiri", 403);
-  }
+export function getViolationById(id: string) {
+  const item = ViolationRepository.findUnique(id);
+  if (!item) throw new AppError("Data pelanggaran tidak ditemukan", 404);
+  return view(item);
+}
+
+function assertAccess(item: any, scope: ListViolationScope) {
+  const student = StudentRepository.findUnique(item.studentId);
+  if (scope.classId && student?.classId !== scope.classId) throw new AppError("Anda tidak memiliki akses ke pelanggaran ini", 403);
+  if (scope.teacherId && item.teacherId !== scope.teacherId) throw new AppError("Anda hanya dapat mengakses laporan yang Anda buat sendiri", 403);
 }
 
 export async function createViolation(input: CreateViolationInput, teacherId: string) {
-  const [student, category] = await Promise.all([
-    prisma.student.findUnique({ where: { id: input.studentId } }),
-    prisma.violationCategory.findUnique({ where: { id: input.categoryId } }),
-  ]);
-
+  const student = StudentRepository.findUnique(input.studentId);
+  const category = ViolationCategoryRepository.findUnique(input.categoryId);
   if (!student) throw new AppError("Siswa tidak ditemukan", 404);
   if (!student.isActive) throw new AppError("Siswa berstatus tidak aktif", 403);
   if (!category) throw new AppError("Kategori pelanggaran tidak ditemukan", 404);
-
   const points = input.points ?? category.points;
-  const date = serverDateOnly(input.date);
-
-  const violation = await prisma.violation.create({
-    data: {
-      studentId: input.studentId,
-      teacherId,
-      categoryId: input.categoryId,
-      description: input.description,
-      date,
-      points,
-      status: "REPORTED",
-    },
-    include: includeDefault,
+  const created = await ViolationRepository.create({
+    id: crypto.randomUUID(), studentId: input.studentId, teacherId, categoryId: input.categoryId, violationCategoryId: input.categoryId,
+    description: input.description ?? "", date: serverDateOnly(input.date).toISOString(), points, point: points, status: "REPORTED",
+    semesterId: "", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
   });
-
-  // "Pelanggaran tertentu" -> email hanya dikirim jika poin >= ambang batas (school_settings).
-  const threshold = await getViolationNotifyThreshold();
-  if (points >= threshold) {
-    void sendViolationEmail({
-      studentId: violation.studentId,
-      studentName: violation.student.fullName,
-      className: violation.student.class.name,
-      majorName: violation.student.major.name,
-      categoryName: violation.category.name,
-      points: violation.points,
-      date: violation.date,
-      description: violation.description ?? undefined,
-      violationId: violation.id,
-    });
+  const result: any = view(created);
+  if (points >= await getViolationNotifyThreshold()) {
+    void sendViolationEmail({ studentId: student.id, studentName: student.fullName, className: result.student.class?.name ?? "-", majorName: result.student.major?.name ?? "-", categoryName: category.name, points, date: new Date(created.date), description: created.description, violationId: created.id });
   }
-
-  return violation;
+  return result;
 }
 
-export async function updateViolation(
-  id: string,
-  input: UpdateViolationInput,
-  scope: ListViolationScope
-) {
-  const violation = await getViolationById(id);
-  assertAccess(violation, scope);
-
-  // GURU hanya boleh mengedit laporannya sendiri SELAGI masih berstatus REPORTED (belum ditinjau).
-  if (scope.teacherId && violation.status !== "REPORTED") {
-    throw new AppError("Laporan yang sudah ditinjau tidak dapat diubah oleh pelapor", 409);
-  }
-
-  if (input.categoryId) {
-    const category = await prisma.violationCategory.findUnique({ where: { id: input.categoryId } });
-    if (!category) throw new AppError("Kategori pelanggaran tidak ditemukan", 404);
-  }
-
-  const updated = await prisma.violation.update({
-    where: { id },
-    data: input,
-    include: includeDefault,
-  });
-
-  return updated;
+export async function updateViolation(id: string, input: UpdateViolationInput, scope: ListViolationScope) {
+  const existing: any = getViolationById(id);
+  assertAccess(existing, scope);
+  if (scope.teacherId && existing.status !== "REPORTED") throw new AppError("Laporan yang sudah ditinjau tidak dapat diubah oleh pelapor", 409);
+  if (input.categoryId && !ViolationCategoryRepository.findUnique(input.categoryId)) throw new AppError("Kategori pelanggaran tidak ditemukan", 404);
+  const updates: any = { ...input };
+  if (input.categoryId) { updates.violationCategoryId = input.categoryId; }
+  if (input.points !== undefined) updates.point = input.points;
+  const updated = await ViolationRepository.update(id, updates);
+  return view(updated);
 }
 
 export async function deleteViolation(id: string) {
-  await getViolationById(id);
-  await prisma.violation.delete({ where: { id } });
+  getViolationById(id);
+  await ViolationRepository.delete(id);
 }

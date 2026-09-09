@@ -7,8 +7,8 @@ import { prisma } from "../config/db";
 
 export async function list(req: Request, res: Response, next: NextFunction) {
   try {
-    // Guru/wali kelas hanya melihat kelas yang ditugaskan kepadanya.
-    if (req.user!.role === "WALI_KELAS" || req.user!.role === "GURU") {
+    // Wali kelas hanya melihat kelas yang ditugaskan kepadanya.
+    if (req.user!.role === "WALI_KELAS") {
       const classId = await getHomeroomClassId(req.user!.userId, req.user!.teacherId);
       const data = await classService.getClassById(classId);
       return ok(res, [data], "Daftar kelas berhasil diambil");
@@ -24,7 +24,7 @@ export async function list(req: Request, res: Response, next: NextFunction) {
 
 export async function detail(req: Request, res: Response, next: NextFunction) {
   try {
-    if (req.user!.role === "WALI_KELAS" || req.user!.role === "GURU") {
+    if (req.user!.role === "WALI_KELAS") {
       const classId = await getHomeroomClassId(req.user!.userId, req.user!.teacherId);
       if (classId !== req.params.id) {
         return fail(res, "Anda tidak memiliki akses ke kelas ini", 403);
@@ -54,8 +54,10 @@ export async function update(req: Request, res: Response, next: NextFunction) {
   try {
     const input = updateClassSchema.parse(req.body);
     const data = await classService.updateClass(req.params.id, input);
-    await prisma.activityLog.create({
+    void prisma.activityLog.create({
       data: { userId: req.user!.userId, action: "UPDATE", entity: "Class", entityId: data.id, ipAddress: req.ip },
+    }).catch((error: unknown) => {
+      console.error("⚠️ Gagal mencatat activity log update kelas:", error);
     });
     return ok(res, data, "Kelas berhasil diperbarui");
   } catch (err) {

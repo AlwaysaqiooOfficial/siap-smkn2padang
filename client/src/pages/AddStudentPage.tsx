@@ -34,9 +34,9 @@ interface StudentDetail {
   gender: "L" | "P";
   birthDate: string;
   address: string | null;
-  major: { id: string };
-  class: { id: string };
-  parent: { fullName: string; phone: string | null; user: { email: string } } | null;
+  major: { id: string } | null;
+  class: { id: string } | null;
+  parent: { fullName: string; email?: string; phone: string | null; user: { email: string } | null } | null;
 }
 
 export default function AddStudentPage() {
@@ -88,11 +88,11 @@ export default function AddStudentPage() {
           nisn: student.nisn,
           fullName: student.fullName,
           gender: student.gender,
-          birthDate: student.birthDate.slice(0, 10),
+          birthDate: student.birthDate ? student.birthDate.slice(0, 10) : "",
           address: student.address ?? "",
-          majorId: student.major.id,
-          classId: student.class.id,
-          parentEmail: student.parent?.user.email ?? "",
+          majorId: student.major?.id ?? "",
+          classId: student.class?.id ?? "",
+          parentEmail: student.parent?.email ?? student.parent?.user?.email ?? "",
           parentFullName: student.parent?.fullName ?? "",
           parentPhone: student.parent?.phone ?? "",
         });

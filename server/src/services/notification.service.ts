@@ -1,4 +1,4 @@
-import { prisma } from "../config/db";
+import { findFirst, transaction } from "./jsonDatabase";
 
 /**
  * Membuat notifikasi in-app untuk seorang user. Tidak pernah melempar error ke pemanggil —
@@ -7,7 +7,16 @@ import { prisma } from "../config/db";
  */
 export async function notifyUser(userId: string, title: string, message: string) {
   try {
-    await prisma.notification.create({ data: { userId, title, message } });
+    await transaction(async (db) => {
+      db.create("notifications", {
+        id: crypto.randomUUID(),
+        userId,
+        title,
+        message,
+        isRead: false,
+        createdAt: new Date().toISOString(),
+      });
+    });
   } catch {
     // Sengaja diabaikan — notifikasi bersifat best-effort, bukan bagian kritikal transaksi.
   }
@@ -19,12 +28,9 @@ export async function notifyParentOfStudent(
   title: string,
   message: string
 ) {
-  const student = await prisma.student.findUnique({
-    where: { id: studentId },
-    select: { parent: { select: { userId: true } } },
-  });
-
-  if (student?.parent?.userId) {
-    await notifyUser(student.parent.userId, title, message);
+  const student = findFirst<any>("students", (item) => item.id === studentId);
+  const parentUserId = student?.parent?.userId;
+  if (parentUserId) {
+    await notifyUser(parentUserId, title, message);
   }
 }

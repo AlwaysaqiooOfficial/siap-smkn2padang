@@ -1,86 +1,48 @@
-import { prisma } from "../config/db";
 import { AppError } from "../middlewares/error.middleware";
 import { hashPassword } from "../utils/password";
 import type { CreateParentInput, UpdateParentInput } from "../schemas/parent.schema";
+import { ClassRepository, StudentRepository, UserRepository } from "./repositories";
+import { findAll, findOne, transaction } from "./jsonDatabase";
 
-const includeDefault = {
-  user: { select: { id: true, email: true, username: true, isActive: true, lastLoginAt: true } },
-  students: { select: { id: true, fullName: true, nis: true, class: { select: { name: true } } } },
-};
-
-export async function listParents() {
-  return prisma.parent.findMany({ include: includeDefault, orderBy: { fullName: "asc" } });
+function withStudents(parent: any) {
+  return {
+    ...parent,
+    students: StudentRepository.findFilter((student) => student.parentId === parent.id).map((student) => ({ id: student.id, fullName: student.fullName, nis: student.nis, class: ClassRepository.findUnique(student.classId) ? { name: ClassRepository.findUnique(student.classId)!.name } : null })),
+    user: parent.userId ? UserRepository.findUnique(parent.userId) : undefined,
+  };
 }
 
-export async function getParentById(id: string) {
-  const parent = await prisma.parent.findUnique({ where: { id }, include: includeDefault });
+export function listParents() {
+  return findAll<any>("parents").map(withStudents).sort((a, b) => a.fullName.localeCompare(b.fullName));
+}
+
+export function getParentById(id: string) {
+  const parent = findOne<any>("parents", id);
   if (!parent) throw new AppError("Data orang tua tidak ditemukan", 404);
-  return parent;
+  return withStudents(parent);
 }
 
 export async function createParent(input: CreateParentInput) {
-  const emailTaken = await prisma.user.findUnique({ where: { email: input.email } });
-  if (emailTaken) throw new AppError("Email sudah digunakan", 409);
-
-  const usernameTaken = await prisma.user.findUnique({ where: { username: input.username } });
-  if (usernameTaken) throw new AppError("Username sudah digunakan", 409);
-
-  const passwordHash = await hashPassword(input.password);
-
-  return prisma.user.create({
-    data: {
-      email: input.email,
-      username: input.username,
-      passwordHash,
-      role: "ORANG_TUA",
-      parent: {
-        create: {
-          fullName: input.fullName,
-          phone: input.phone,
-          address: input.address,
-        },
-      },
-    },
-    include: { parent: true },
-  });
+  if (UserRepository.findFirst((user) => user.email === input.email)) throw new AppError("Email sudah digunakan", 409);
+  if (UserRepository.findFirst((user) => user.username === input.username)) throw new AppError("Username sudah digunakan", 409);
+  const now = new Date().toISOString(); const userId = crypto.randomUUID(); const parentId = crypto.randomUUID();
+  await UserRepository.create({ id: userId, email: input.email, username: input.username, passwordHash: await hashPassword(input.password), role: "ORANG_TUA", isActive: true, lastLoginAt: null, createdAt: now, updatedAt: now });
+  await transaction(async (db) => db.create("parents", { id: parentId, userId, fullName: input.fullName, phone: input.phone ?? "", address: input.address ?? "", createdAt: now, updatedAt: now }));
+  return getParentById(parentId);
 }
 
 export async function updateParent(id: string, input: UpdateParentInput) {
-  const parent = await getParentById(id);
-
-  if (input.email) {
-    const taken = await prisma.user.findFirst({ where: { email: input.email, NOT: { id: parent.user.id } } });
-    if (taken) throw new AppError("Email sudah digunakan", 409);
-  }
-  if (input.username) {
-    const taken = await prisma.user.findFirst({ where: { username: input.username, NOT: { id: parent.user.id } } });
-    if (taken) throw new AppError("Username sudah digunakan", 409);
-  }
-
-  const userData: Record<string, unknown> = {};
-  if (input.email) userData.email = input.email;
-  if (input.username) userData.username = input.username;
-  if (typeof input.isActive === "boolean") userData.isActive = input.isActive;
-  if (input.password) userData.passwordHash = await hashPassword(input.password);
-
-  const parentData: Record<string, unknown> = {};
-  if (input.fullName) parentData.fullName = input.fullName;
-  if (input.phone) parentData.phone = input.phone;
-  if (input.address) parentData.address = input.address;
-
-  if (Object.keys(userData).length > 0) {
-    await prisma.user.update({ where: { id: parent.user.id }, data: userData });
-  }
-  return prisma.parent.update({ where: { id }, data: parentData, include: includeDefault });
+  const parent = getParentById(id); const user = parent.user;
+  if (input.email && UserRepository.findFirst((item) => item.email === input.email && item.id !== user?.id)) throw new AppError("Email sudah digunakan", 409);
+  if (input.username && UserRepository.findFirst((item) => item.username === input.username && item.id !== user?.id)) throw new AppError("Username sudah digunakan", 409);
+  if (user) await UserRepository.update(user.id, { email: input.email ?? user.email, username: input.username ?? user.username, isActive: input.isActive ?? user.isActive, ...(input.password ? { passwordHash: await hashPassword(input.password) } : {}) });
+  const updates: any = {}; if (input.fullName !== undefined) updates.fullName = input.fullName; if (input.phone !== undefined) updates.phone = input.phone; if (input.address !== undefined) updates.address = input.address;
+  if (Object.keys(updates).length) await transaction(async (db) => db.update("parents", id, updates));
+  return getParentById(id);
 }
 
 export async function deleteParent(id: string) {
-  const parent = await getParentById(id);
-  if (parent.students.length > 0) {
-    throw new AppError(
-      "Data orang tua tidak dapat dihapus karena masih terhubung dengan data siswa",
-      409
-    );
-  }
-  await prisma.user.delete({ where: { id: parent.user.id } });
+  const parent = getParentById(id); if (parent.students.length) throw new AppError("Data orang tua tidak dapat dihapus karena masih terhubung dengan data siswa", 409);
+  if (parent.user?.id) await UserRepository.delete(parent.user.id);
+  await transaction(async (db) => db.delete("parents", id));
 }

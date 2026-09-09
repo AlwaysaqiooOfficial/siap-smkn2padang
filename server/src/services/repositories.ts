@@ -252,6 +252,7 @@ export interface Semester {
 
 export const SemesterRepository = {
   findMany: () => findAll<Semester>("semesters"),
+  findUnique: (id: string) => findOne<Semester>("semesters", id),
   findFirst: (predicate: (s: Semester) => boolean) => findFirst<Semester>("semesters", predicate),
 };
 
@@ -281,7 +282,7 @@ export interface Attendance {
   semesterId: string;
   date: string;
   checkInTime: string | null;
-  status: "HADIR" | "TERLAMBAT" | "ALFA";
+  status: "HADIR" | "TERLAMBAT" | "ALFA" | "IZIN" | "SAKIT" | "DISPENSASI";
   createdAt: string;
   updatedAt: string;
   [key: string]: any;
@@ -324,14 +325,19 @@ export const AttendanceRepository = {
 export interface Permission {
   id: string;
   studentId: string;
-  semesterId: string;
+  semesterId?: string;
   date: string;
-  startTime: string;
-  endTime: string;
+  startTime?: string;
+  endTime?: string;
   reason: string;
+  type: "IZIN" | "SAKIT" | "DISPENSASI";
+  attachment?: string;
   status: "PENDING" | "APPROVED" | "REJECTED";
   approvedBy: string | null;
   approvedAt: string | null;
+  reviewedBy?: string | null;
+  reviewedAt?: string | null;
+  note?: string;
   createdAt: string;
   updatedAt: string;
   [key: string]: any;
@@ -371,9 +377,13 @@ export interface Violation {
   studentId: string;
   semesterId: string;
   violationCategoryId: string;
+  categoryId?: string;
   date: string;
   description: string;
   point: number;
+  points?: number;
+  teacherId?: string;
+  status?: "REPORTED" | "REVIEWED" | "RESOLVED";
   createdAt: string;
   updatedAt: string;
   [key: string]: any;
@@ -411,7 +421,7 @@ export const ViolationRepository = {
 export interface ViolationCategory {
   id: string;
   name: string;
-  point: number;
+  points: number;
   description: string | null;
   createdAt: string;
   updatedAt: string;

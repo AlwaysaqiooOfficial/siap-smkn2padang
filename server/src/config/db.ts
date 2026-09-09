@@ -1,18 +1,18 @@
-import { PrismaClient } from "@prisma/client";
-import { env } from "./env";
+import { transaction } from "../services/jsonDatabase";
+import { TeacherRepository, UserRepository } from "../services/repositories";
 
-declare global {
-  // eslint-disable-next-line no-var
-  var __prisma__: PrismaClient | undefined;
-}
-
-// Hindari membuat banyak instance PrismaClient saat hot-reload di development.
-export const prisma =
-  global.__prisma__ ??
-  new PrismaClient({
-    log: env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
-  });
-
-if (env.NODE_ENV !== "production") {
-  global.__prisma__ = prisma;
-}
+/**
+ * Compatibility facade for legacy controller code during the final migration.
+ * It never opens a MySQL connection; all supported operations use GitHub JSON.
+ */
+export const prisma: any = {
+  activityLog: {
+    create: async ({ data }: { data: Record<string, any> }) => transaction(async (db) => db.create("activity_logs", { id: crypto.randomUUID(), ...data, createdAt: new Date().toISOString() })),
+  },
+  user: {
+    findUnique: async ({ where }: any) => where.id ? UserRepository.findUnique(where.id) : UserRepository.findFirst((item) => item.email === where.email || item.username === where.username),
+  },
+  teacher: {
+    findUnique: async ({ where }: any) => where.id ? TeacherRepository.findUnique(where.id) : TeacherRepository.findFirst((item) => item.userId === where.userId),
+  },
+};

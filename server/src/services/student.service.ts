@@ -21,7 +21,7 @@ export async function listStudents(filter: StudentListFilter) {
   const classId = filter.classId;
   const majorId = filter.majorId;
 
-  let students = StudentRepository.findMany();
+  let students = StudentRepository.findFilter((student) => student.isActive !== false);
 
   if (classId) students = students.filter(s => s.classId === classId);
   if (majorId) students = students.filter(s => s.majorId === majorId);
@@ -123,12 +123,24 @@ export async function updateStudent(id: string, input: UpdateStudentInput, scope
   }
 
   // Convert birthDate to string if it's a Date
-  const updateData = {
+  const updateData: Record<string, any> = {
     ...studentData,
     birthDate: studentData.birthDate 
       ? (typeof studentData.birthDate === 'string' ? studentData.birthDate : new Date(studentData.birthDate).toISOString().split('T')[0])
       : undefined
   };
+
+  const parentChanged = parentEmail !== undefined || parentFullName !== undefined || parentPhone !== undefined;
+  if (parentChanged) {
+    const currentParent = (student as any).parent;
+    updateData.parent = {
+      ...(currentParent ?? { id: crypto.randomUUID(), userId: null }),
+      email: parentEmail ?? currentParent?.email ?? currentParent?.user?.email ?? "",
+      fullName: parentFullName ?? currentParent?.fullName ?? "",
+      phone: parentPhone ?? currentParent?.phone ?? "",
+      updatedAt: new Date().toISOString(),
+    };
+  }
 
   await StudentRepository.update(id, updateData);
   return getStudentById(id);
@@ -137,7 +149,8 @@ export async function updateStudent(id: string, input: UpdateStudentInput, scope
 export async function deleteStudent(id: string, scopedClassId?: string) {
   const student = await getStudentById(id);
   assertOwnClass(student, scopedClassId);
-  return StudentRepository.update(id, { isActive: false });
+  await StudentRepository.delete(id);
+  return { id, deleted: true };
 }
 
 export async function getStudentQrImage(id: string) {

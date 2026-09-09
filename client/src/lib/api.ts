@@ -32,8 +32,15 @@ api.interceptors.response.use(
 /** Ekstrak pesan error yang ramah dari respons API/axios. */
 export function getErrorMessage(err: unknown): string {
   if (axios.isAxiosError(err)) {
-    const data = err.response?.data as { message?: string } | undefined;
-    if (data?.message) return data.message;
+    const data = err.response?.data as { message?: string; errors?: Record<string, string[]> } | undefined;
+    if (data?.message) {
+      const details = data.errors
+        ? Object.entries(data.errors)
+            .flatMap(([field, messages]) => messages.map((message) => `${field}: ${message}`))
+            .join("; ")
+        : "";
+      return details ? `${data.message} (${details})` : data.message;
+    }
     if (err.code === "ECONNABORTED") return "Permintaan terlalu lama (timeout). Coba lagi.";
     if (!err.response) return "Tidak dapat terhubung ke server.";
   }

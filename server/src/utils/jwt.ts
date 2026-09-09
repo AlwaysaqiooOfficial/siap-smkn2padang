@@ -1,6 +1,6 @@
 import jwt, { SignOptions } from "jsonwebtoken";
 import { env } from "../config/env";
-import type { Role } from "@prisma/client";
+export type Role = "SUPER_ADMIN" | "SCANNER" | "WALI_KELAS" | "GURU" | "ORANG_TUA" | "SISWA";
 
 export interface JwtPayload {
   userId: string;

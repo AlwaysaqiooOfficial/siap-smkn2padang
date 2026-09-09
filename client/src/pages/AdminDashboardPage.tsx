@@ -21,6 +21,7 @@ import type { AdminDashboardData, ApiResponse } from "../types";
 const NAV_ITEMS = [
   { to: "/dashboard/admin", label: "Dashboard" },
   { to: "/scan", label: "Scan QR" },
+  { to: "/management/classes", label: "Tambah Kelas" },
   { to: "/management/teachers", label: "Guru & Wali Kelas" },
   { to: "/reports/attendance", label: "Laporan" },
   { to: "/students/qr", label: "QR Siswa" },

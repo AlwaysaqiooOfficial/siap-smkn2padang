@@ -1,49 +1,51 @@
-import { prisma } from "../config/db";
 import { AppError } from "../middlewares/error.middleware";
-import type {
-  CreateViolationCategoryInput,
-  UpdateViolationCategoryInput,
-} from "../schemas/violationCategory.schema";
+import type { CreateViolationCategoryInput, UpdateViolationCategoryInput } from "../schemas/violationCategory.schema";
+import { ViolationCategoryRepository, ViolationRepository } from "./repositories";
 
-export async function listViolationCategories() {
-  return prisma.violationCategory.findMany({
-    orderBy: { name: "asc" },
-    include: { _count: { select: { violations: true } } },
-  });
+export function listViolationCategories() {
+  return ViolationCategoryRepository.findMany()
+    .map((category) => ({
+      ...category,
+      _count: { violations: ViolationRepository.count((item) => item.violationCategoryId === category.id) },
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export async function getViolationCategoryById(id: string) {
-  const category = await prisma.violationCategory.findUnique({
-    where: { id },
-    include: { _count: { select: { violations: true } } },
-  });
+export function getViolationCategoryById(id: string) {
+  const category = ViolationCategoryRepository.findUnique(id);
   if (!category) throw new AppError("Kategori pelanggaran tidak ditemukan", 404);
-  return category;
+  return {
+    ...category,
+    _count: { violations: ViolationRepository.count((item) => item.violationCategoryId === id) },
+  };
 }
 
 export async function createViolationCategory(input: CreateViolationCategoryInput) {
-  const exists = await prisma.violationCategory.findUnique({ where: { name: input.name } });
-  if (exists) throw new AppError("Nama kategori pelanggaran sudah digunakan", 409);
-  return prisma.violationCategory.create({ data: input });
+  if (ViolationCategoryRepository.findFirst((item) => item.name === input.name)) {
+    throw new AppError("Nama kategori pelanggaran sudah digunakan", 409);
+  }
+  return ViolationCategoryRepository.create({
+    id: crypto.randomUUID(),
+    ...input,
+    description: null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
 }
 
-/** Admin dapat mengubah poin kategori kapan saja — sesuai spesifikasi "sistem poin dapat dikonfigurasi". */
 export async function updateViolationCategory(id: string, input: UpdateViolationCategoryInput) {
-  await getViolationCategoryById(id);
-  if (input.name) {
-    const taken = await prisma.violationCategory.findFirst({ where: { name: input.name, NOT: { id } } });
-    if (taken) throw new AppError("Nama kategori pelanggaran sudah digunakan", 409);
+  getViolationCategoryById(id);
+  if (input.name && ViolationCategoryRepository.findFirst((item) => item.name === input.name && item.id !== id)) {
+    throw new AppError("Nama kategori pelanggaran sudah digunakan", 409);
   }
-  return prisma.violationCategory.update({ where: { id }, data: input });
+  await ViolationCategoryRepository.update(id, input);
+  return getViolationCategoryById(id);
 }
 
 export async function deleteViolationCategory(id: string) {
-  const category = await getViolationCategoryById(id);
+  const category = getViolationCategoryById(id);
   if (category._count.violations > 0) {
-    throw new AppError(
-      "Kategori tidak dapat dihapus karena masih dipakai oleh data pelanggaran",
-      409
-    );
+    throw new AppError("Kategori tidak dapat dihapus karena masih dipakai oleh data pelanggaran", 409);
   }
-  await prisma.violationCategory.delete({ where: { id } });
+  await ViolationCategoryRepository.delete(id);
 }
