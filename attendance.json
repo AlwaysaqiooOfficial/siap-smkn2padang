@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "30c03557-1671-42f2-aca4-050a60d35e7d",
+    "studentId": "0ca7db0f-b5a6-4ba3-be5f-13c9ae8dbef2",
+    "semesterId": "semester-default-2026-ganjil",
+    "date": "2026-09-09T00:00:00.000Z",
+    "checkInTime": "2026-09-09T00:51:31.547Z",
+    "status": "TERLAMBAT",
+    "createdAt": "2026-09-09T00:51:31.547Z",
+    "updatedAt": "2026-09-09T00:51:31.547Z"
+  }
+]
