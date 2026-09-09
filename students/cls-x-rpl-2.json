@@ -115,5 +115,23 @@
       "lastPresentAt": "2026-09-02T08:59:00.000Z",
       "lastResetAt": "2026-09-08T00:00:00.000Z"
     }
+  },
+  {
+    "id": "8c9cbba5-8d03-4413-895d-3c31862851d3",
+    "nis": "2637267362",
+    "nisn": "2323233",
+    "fullName": "dljfhbkjisgfjegkjbeiusgfuegseyugu",
+    "gender": "P",
+    "birthDate": "0034-05-07",
+    "majorId": "mjr-rpl",
+    "classId": "cls-x-rpl-2",
+    "address": null,
+    "qrToken": "SIAP-3C8EB9074E0F-MTTEFS2W",
+    "userId": null,
+    "parentId": null,
+    "isActive": true,
+    "emailSent": false,
+    "createdAt": "2026-09-09T01:07:47.816Z",
+    "updatedAt": "2026-09-09T01:07:47.816Z"
   }
 ]
