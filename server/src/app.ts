@@ -10,9 +10,10 @@ import { loadCollections } from "./services/jsonDatabase";
 
 const app = express();
 
+let collectionsError: unknown = null;
 const collectionsReady = loadCollections().catch((err) => {
+  collectionsError = err;
   console.error("❌ Failed to load collections:", err);
-  throw err;
 });
 
 // Vercel selalu meneruskan X-Forwarded-For; percayai satu proxy di production
@@ -33,10 +34,23 @@ app.use(
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// Endpoint diagnostik tidak boleh menunggu koneksi database.
+app.get("/", (_req, res) => {
+  res.json({ success: true, message: "SIAP SMKN 2 PADANG API is running" });
+});
+
+app.get("/api/health", (_req, res) => {
+  res.json({ success: true, message: "SIAP SMKN 2 PADANG API is running", time: new Date() });
+});
+
 // Never serve or mutate the cache while the initial Supabase load is pending.
 app.use(async (_req, _res, next) => {
   try {
     await collectionsReady;
+    if (collectionsError) {
+      next(collectionsError);
+      return;
+    }
     next();
   } catch (error) {
     next(error);
@@ -56,10 +70,6 @@ app.use(
     message: { success: false, message: "Terlalu banyak permintaan, coba lagi nanti." },
   })
 );
-
-app.get("/api/health", (_req, res) => {
-  res.json({ success: true, message: "SIAP SMKN 2 PADANG API is running", time: new Date() });
-});
 
 app.use("/api", routes);
 
