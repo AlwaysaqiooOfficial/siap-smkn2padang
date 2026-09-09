@@ -37,12 +37,12 @@
   },
   {
     "id": "cls-x-akl-1",
-    "name": "X AKL 1",
-    "grade": 10,
-    "majorId": "mjr-akl",
+    "name": "XII BD 1",
+    "grade": 12,
+    "majorId": "mjr-bd",
     "homeroomTeacherId": "20c0759b-6e53-4800-8d4f-87b8ad61ae0f",
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-09T01:07:19.390Z"
+    "updatedAt": "2026-09-09T01:21:42.860Z"
   },
   {
     "id": "cls-x-ulw-1",
