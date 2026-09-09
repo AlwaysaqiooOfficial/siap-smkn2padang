@@ -18,5 +18,15 @@
     "status": "TERLAMBAT",
     "createdAt": "2026-09-09T00:56:15.429Z",
     "updatedAt": "2026-09-09T00:56:15.429Z"
+  },
+  {
+    "id": "6f3f114d-64cb-434a-9e71-87af17bca9bf",
+    "studentId": "std-1",
+    "semesterId": "semester-default-2026-ganjil",
+    "date": "2026-09-09T00:00:00.000Z",
+    "checkInTime": "2026-09-09T01:22:47.206Z",
+    "status": "TERLAMBAT",
+    "createdAt": "2026-09-09T01:22:47.206Z",
+    "updatedAt": "2026-09-09T01:22:47.206Z"
   }
 ]
