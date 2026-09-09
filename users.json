@@ -28,9 +28,9 @@
     "passwordHash": "$2b$12$EVeoqtV1rK4suzn4sn17X.CXFRzCZISAdBFKogghQlWrXtJ2ME7Ha",
     "role": "GURU",
     "isActive": true,
-    "lastLoginAt": null,
+    "lastLoginAt": "2026-09-09T00:41:26.253Z",
     "createdAt": "2026-09-08T03:53:18.674Z",
-    "updatedAt": "2026-09-08T17:27:19.171Z"
+    "updatedAt": "2026-09-09T00:41:26.253Z"
   },
   {
     "id": "a0410176-064f-4787-bc03-6b229dd3190c",
